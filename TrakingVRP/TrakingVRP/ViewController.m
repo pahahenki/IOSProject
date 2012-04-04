@@ -15,6 +15,9 @@
 
 @implementation ViewController
 
+@synthesize display;
+@synthesize brain;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -26,6 +29,8 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
+
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
