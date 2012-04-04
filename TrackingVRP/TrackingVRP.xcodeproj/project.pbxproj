@@ -15,8 +15,9 @@
 		5613BEDF152C46DD0067328C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5613BED8152C46DD0067328C /* AppDelegate.m */; };
 		5613BEE0152C46DD0067328C /* TrackingBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 5613BEDA152C46DD0067328C /* TrackingBrain.m */; };
 		5613BEE1152C46DD0067328C /* TrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5613BEDC152C46DD0067328C /* TrackingView.m */; };
-		5613BEE2152C46DD0067328C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5613BEDE152C46DD0067328C /* ViewController.m */; };
 		5613BEE4152C47560067328C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5613BEE3152C47560067328C /* CoreLocation.framework */; };
+		5613BEEB152C4BA40067328C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5613BEEA152C4BA40067328C /* ViewController.m */; };
+		5613BEF0152C4C2E0067328C /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5613BEEE152C4C2E0067328C /* ViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,9 +35,10 @@
 		5613BEDA152C46DD0067328C /* TrackingBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingBrain.m; sourceTree = "<group>"; };
 		5613BEDB152C46DD0067328C /* TrackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingView.h; sourceTree = "<group>"; };
 		5613BEDC152C46DD0067328C /* TrackingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingView.m; sourceTree = "<group>"; };
-		5613BEDD152C46DD0067328C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		5613BEDE152C46DD0067328C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		5613BEE3152C47560067328C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5613BEE9152C4BA40067328C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		5613BEEA152C4BA40067328C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		5613BEEE152C4C2E0067328C /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,9 +92,10 @@
 				5613BED9152C46DD0067328C /* TrackingBrain.h */,
 				5613BEDA152C46DD0067328C /* TrackingBrain.m */,
 				5613BEDB152C46DD0067328C /* TrackingView.h */,
+				5613BEE9152C4BA40067328C /* ViewController.h */,
+				5613BEEA152C4BA40067328C /* ViewController.m */,
 				5613BEDC152C46DD0067328C /* TrackingView.m */,
-				5613BEDD152C46DD0067328C /* ViewController.h */,
-				5613BEDE152C46DD0067328C /* ViewController.m */,
+				5613BEEE152C4C2E0067328C /* ViewController.xib */,
 				5613BEC1152C46990067328C /* Supporting Files */,
 			);
 			path = TrackingVRP;
@@ -160,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5613BEC5152C46990067328C /* InfoPlist.strings in Resources */,
+				5613BEF0152C4C2E0067328C /* ViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,7 +178,7 @@
 				5613BEDF152C46DD0067328C /* AppDelegate.m in Sources */,
 				5613BEE0152C46DD0067328C /* TrackingBrain.m in Sources */,
 				5613BEE1152C46DD0067328C /* TrackingView.m in Sources */,
-				5613BEE2152C46DD0067328C /* ViewController.m in Sources */,
+				5613BEEB152C4BA40067328C /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,7 +215,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -228,7 +232,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -241,7 +245,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TrackingVRP/TrackingVRP-Prefix.pch";
 				INFOPLIST_FILE = "TrackingVRP/TrackingVRP-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -253,7 +257,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TrackingVRP/TrackingVRP-Prefix.pch";
 				INFOPLIST_FILE = "TrackingVRP/TrackingVRP-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
