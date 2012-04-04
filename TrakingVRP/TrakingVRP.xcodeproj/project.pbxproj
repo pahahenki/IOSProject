@@ -1,0 +1,297 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		56E18A9F152C2420004F8A3F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56E18A9E152C2420004F8A3F /* UIKit.framework */; };
+		56E18AA1152C2420004F8A3F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56E18AA0152C2420004F8A3F /* Foundation.framework */; };
+		56E18AA3152C2420004F8A3F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56E18AA2152C2420004F8A3F /* CoreGraphics.framework */; };
+		56E18AA9152C2420004F8A3F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56E18AA7152C2420004F8A3F /* InfoPlist.strings */; };
+		56E18AAB152C2421004F8A3F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E18AAA152C2420004F8A3F /* main.m */; };
+		56E18AAF152C2421004F8A3F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E18AAE152C2421004F8A3F /* AppDelegate.m */; };
+		56E18AB2152C2421004F8A3F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E18AB1152C2421004F8A3F /* ViewController.m */; };
+		56E18AB5152C2421004F8A3F /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56E18AB3152C2421004F8A3F /* ViewController.xib */; };
+		56E18ABC152C25E1004F8A3F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56E18ABB152C25E1004F8A3F /* CoreLocation.framework */; };
+		56E18ABF152C26FE004F8A3F /* TrakingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E18ABE152C26FE004F8A3F /* TrakingView.m */; };
+		56E18AC6152C281C004F8A3F /* TrakingBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E18AC5152C281C004F8A3F /* TrakingBrain.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		56E18A9A152C2420004F8A3F /* TrakingVRP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrakingVRP.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		56E18A9E152C2420004F8A3F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		56E18AA0152C2420004F8A3F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		56E18AA2152C2420004F8A3F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		56E18AA6152C2420004F8A3F /* TrakingVRP-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TrakingVRP-Info.plist"; sourceTree = "<group>"; };
+		56E18AA8152C2420004F8A3F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		56E18AAA152C2420004F8A3F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		56E18AAC152C2421004F8A3F /* TrakingVRP-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TrakingVRP-Prefix.pch"; sourceTree = "<group>"; };
+		56E18AAD152C2421004F8A3F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		56E18AAE152C2421004F8A3F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		56E18AB0152C2421004F8A3F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		56E18AB1152C2421004F8A3F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		56E18AB4152C2421004F8A3F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		56E18ABB152C25E1004F8A3F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		56E18ABD152C26FE004F8A3F /* TrakingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrakingView.h; sourceTree = "<group>"; };
+		56E18ABE152C26FE004F8A3F /* TrakingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrakingView.m; sourceTree = "<group>"; };
+		56E18AC4152C281C004F8A3F /* TrakingBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrakingBrain.h; sourceTree = "<group>"; };
+		56E18AC5152C281C004F8A3F /* TrakingBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrakingBrain.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		56E18A97152C2420004F8A3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56E18ABC152C25E1004F8A3F /* CoreLocation.framework in Frameworks */,
+				56E18A9F152C2420004F8A3F /* UIKit.framework in Frameworks */,
+				56E18AA1152C2420004F8A3F /* Foundation.framework in Frameworks */,
+				56E18AA3152C2420004F8A3F /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		56E18A8F152C2420004F8A3F = {
+			isa = PBXGroup;
+			children = (
+				56E18AA4152C2420004F8A3F /* TrakingVRP */,
+				56E18A9D152C2420004F8A3F /* Frameworks */,
+				56E18A9B152C2420004F8A3F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		56E18A9B152C2420004F8A3F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				56E18A9A152C2420004F8A3F /* TrakingVRP.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		56E18A9D152C2420004F8A3F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				56E18ABB152C25E1004F8A3F /* CoreLocation.framework */,
+				56E18A9E152C2420004F8A3F /* UIKit.framework */,
+				56E18AA0152C2420004F8A3F /* Foundation.framework */,
+				56E18AA2152C2420004F8A3F /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		56E18AA4152C2420004F8A3F /* TrakingVRP */ = {
+			isa = PBXGroup;
+			children = (
+				56E18AAD152C2421004F8A3F /* AppDelegate.h */,
+				56E18AAE152C2421004F8A3F /* AppDelegate.m */,
+				56E18AB0152C2421004F8A3F /* ViewController.h */,
+				56E18AB1152C2421004F8A3F /* ViewController.m */,
+				56E18ABD152C26FE004F8A3F /* TrakingView.h */,
+				56E18ABE152C26FE004F8A3F /* TrakingView.m */,
+				56E18AB3152C2421004F8A3F /* ViewController.xib */,
+				56E18AC4152C281C004F8A3F /* TrakingBrain.h */,
+				56E18AC5152C281C004F8A3F /* TrakingBrain.m */,
+				56E18AA5152C2420004F8A3F /* Supporting Files */,
+			);
+			path = TrakingVRP;
+			sourceTree = "<group>";
+		};
+		56E18AA5152C2420004F8A3F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				56E18AA6152C2420004F8A3F /* TrakingVRP-Info.plist */,
+				56E18AA7152C2420004F8A3F /* InfoPlist.strings */,
+				56E18AAA152C2420004F8A3F /* main.m */,
+				56E18AAC152C2421004F8A3F /* TrakingVRP-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		56E18A99152C2420004F8A3F /* TrakingVRP */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 56E18AB8152C2421004F8A3F /* Build configuration list for PBXNativeTarget "TrakingVRP" */;
+			buildPhases = (
+				56E18A96152C2420004F8A3F /* Sources */,
+				56E18A97152C2420004F8A3F /* Frameworks */,
+				56E18A98152C2420004F8A3F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TrakingVRP;
+			productName = TrakingVRP;
+			productReference = 56E18A9A152C2420004F8A3F /* TrakingVRP.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		56E18A91152C2420004F8A3F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 56E18A94152C2420004F8A3F /* Build configuration list for PBXProject "TrakingVRP" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 56E18A8F152C2420004F8A3F;
+			productRefGroup = 56E18A9B152C2420004F8A3F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				56E18A99152C2420004F8A3F /* TrakingVRP */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		56E18A98152C2420004F8A3F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56E18AA9152C2420004F8A3F /* InfoPlist.strings in Resources */,
+				56E18AB5152C2421004F8A3F /* ViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		56E18A96152C2420004F8A3F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56E18AAB152C2421004F8A3F /* main.m in Sources */,
+				56E18AAF152C2421004F8A3F /* AppDelegate.m in Sources */,
+				56E18AB2152C2421004F8A3F /* ViewController.m in Sources */,
+				56E18ABF152C26FE004F8A3F /* TrakingView.m in Sources */,
+				56E18AC6152C281C004F8A3F /* TrakingBrain.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		56E18AA7152C2420004F8A3F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				56E18AA8152C2420004F8A3F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		56E18AB3152C2421004F8A3F /* ViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				56E18AB4152C2421004F8A3F /* en */,
+			);
+			name = ViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		56E18AB6152C2421004F8A3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		56E18AB7152C2421004F8A3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		56E18AB9152C2421004F8A3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TrakingVRP/TrakingVRP-Prefix.pch";
+				INFOPLIST_FILE = "TrakingVRP/TrakingVRP-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		56E18ABA152C2421004F8A3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TrakingVRP/TrakingVRP-Prefix.pch";
+				INFOPLIST_FILE = "TrakingVRP/TrakingVRP-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		56E18A94152C2420004F8A3F /* Build configuration list for PBXProject "TrakingVRP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56E18AB6152C2421004F8A3F /* Debug */,
+				56E18AB7152C2421004F8A3F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		56E18AB8152C2421004F8A3F /* Build configuration list for PBXNativeTarget "TrakingVRP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56E18AB9152C2421004F8A3F /* Debug */,
+				56E18ABA152C2421004F8A3F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 56E18A91152C2420004F8A3F /* Project object */;
+}
