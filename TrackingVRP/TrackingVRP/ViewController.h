@@ -11,14 +11,20 @@
 #import "TrackingBrain.h"
 
 @interface ViewController : UIViewController <TrackingViewDelegate>{
-
-IBOutlet UILabel *display;
-TrackingBrain *brain;
+    
+    IBOutlet UILabel *longitude;
+    IBOutlet UILabel *latitude;
+    IBOutlet UILabel *distanceTotal;
+    IBOutlet UIButton *button;
+    TrackingBrain *brain;
 }
 
-@property(nonatomic,retain) UILabel *display;
+@property(nonatomic,retain) UILabel *longitude;
+@property(nonatomic,retain) UILabel *latitude;
+@property(nonatomic,retain) UILabel *distanceTotal;
+@property(nonatomic,retain) UIButton *button;
 @property(nonatomic,retain) TrackingBrain *brain;
 
--(IBAction)locateMe:(id)sender;
+-(IBAction)locateMe:(UIButton*) sender;
 
 @end

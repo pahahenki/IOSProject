@@ -9,28 +9,66 @@
 #import "ViewController.h"
 
 
+
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
 
-@synthesize display;
+@synthesize longitude;
+@synthesize latitude;
+@synthesize distanceTotal;
 @synthesize brain;
+@synthesize button;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    brain = [[TrackingBrain alloc] init];
+    if ( [CLLocationManager locationServicesEnabled]) {
+        CLLocation *location = [self.brain getLocation];
+        
+        [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
+        [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
+        [button setEnabled:YES];
+                 NSLog(@"True");
+    
+    }
+    else {
+        [longitude setText: @"Activer la localisation"];
+        [button setEnabled:NO];
+         NSLog(@"false");
+    }
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)viewDidUnload
 {
+    [longitude release];
+    [latitude release];
+    [brain release];
+    [button release];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
 
+-(void)dealloc{
+    [longitude release];
+    [latitude release];
+    [brain release];
+    [button release];
+    [super dealloc];
+}
 
+
+- (IBAction)locateMe:(UIButton*)sender{
+    CLLocation *location = [self.brain getLocation];
+
+    [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
+    [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
+    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.distanceTotal]];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
