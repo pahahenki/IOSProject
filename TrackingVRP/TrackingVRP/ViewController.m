@@ -29,6 +29,8 @@
     if ( [CLLocationManager locationServicesEnabled]) {
         CLLocation *location = [self.brain getLocation];
         
+        
+        
         [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
         [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
         [button setEnabled:YES];
