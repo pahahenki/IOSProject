@@ -12,7 +12,8 @@
 
 @implementation TrackingBrain
 
-@synthesize distanceTotal;
+@synthesize distanceTotal,distanceParHeure;
+@synthesize heureActuelle,heureActuelleString,h24;
 @synthesize locMgr;
 @synthesize delegate;
 
@@ -21,6 +22,16 @@
     self = [super init];
     if (self) {
         self.distanceTotal = 0;
+        self.distanceParHeure = 0;
+        h24 = [[NSMutableArray alloc] initWithCapacity:24];
+        for(int i = 0; i < 24; i++){
+            [h24 insertObject:[NSNumber numberWithDouble:0] atIndex:i];
+        }
+        heureActuelle =  [NSDate date];
+        timeFormatter = [[NSDateFormatter alloc] init];
+        [timeFormatter setDateFormat:@"HH"];
+        heureActuelleString = [[NSMutableString alloc] initWithString:[timeFormatter stringFromDate:heureActuelle]];
+        NSLog(@"%@",heureActuelleString);
         self.locMgr =  [[[CLLocationManager alloc] init] autorelease];
         self.locMgr.delegate = self;
         //self.locMgr.distanceFilter = 10;
@@ -31,6 +42,11 @@
 }
 
 -(void)dealloc{
+    [h24 dealloc];
+    [heureActuelle dealloc];
+    [timeFormatter dealloc];
+    [heureActuelleString dealloc];
+    [locMgr dealloc];
     [super dealloc];
 }
 
@@ -45,9 +61,20 @@
 	didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    
+    self.heureActuelle = [NSDate date];
+    NSString *tmp = [timeFormatter stringFromDate:self.heureActuelle];
+    //On regarde si l'heure a changé
+    if(![tmp isEqualToString:self.heureActuelleString]){
+        //On met la distance parcourue par heure dans notre tableau
+        int index = [self.heureActuelleString intValue];
+        [h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithDouble:self.distanceParHeure]];
+        self.distanceParHeure = 0;
+    }
+    //On met à jour l'heure actuelle
+    [self.heureActuelleString setString:tmp];
  
     //NSLog( [CLLocationManager locationServicesEnabled]);
+    self.distanceParHeure += (double) [oldLocation distanceFromLocation:newLocation];
     self.distanceTotal += (double) [oldLocation distanceFromLocation:newLocation];
     NSLog(@"%f, %f", newLocation.coordinate.longitude, newLocation.coordinate.latitude);
 }
