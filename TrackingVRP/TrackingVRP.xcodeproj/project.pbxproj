@@ -230,9 +230,6 @@
 		5613BEAB152C46980067328C = {
 			isa = PBXGroup;
 			children = (
-				457D1E6915377F63008EEFDB /* QuartzCore.framework */,
-				457D1E6715377DA3008EEFDB /* libCorePlot-CocoaTouch.a */,
-				457D1E1615377D72008EEFDB /* CorePlotHeaders */,
 				5613BEC0152C46990067328C /* TrackingVRP */,
 				5613BEB9152C46990067328C /* Frameworks */,
 				5613BEB7152C46990067328C /* Products */,
@@ -250,6 +247,9 @@
 		5613BEB9152C46990067328C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				457D1E1615377D72008EEFDB /* CorePlotHeaders */,
+				457D1E6715377DA3008EEFDB /* libCorePlot-CocoaTouch.a */,
+				457D1E6915377F63008EEFDB /* QuartzCore.framework */,
 				5613BEE3152C47560067328C /* CoreLocation.framework */,
 				5613BEBA152C46990067328C /* UIKit.framework */,
 				5613BEBC152C46990067328C /* Foundation.framework */,

@@ -32,7 +32,7 @@
 
 
 -(CLLocation *) getLocation;
-
+-(void) demarrer;
 
 
 @end

@@ -19,6 +19,8 @@
 @synthesize longitude;
 @synthesize latitude;
 @synthesize distanceTotal;
+@synthesize distancePartiel;
+@synthesize heureActuel;
 @synthesize brain;
 @synthesize button;
 
@@ -26,25 +28,21 @@
 {
     [super viewDidLoad];
     brain = [[TrackingBrain alloc] init];
-    if ( [CLLocationManager locationServicesEnabled]) {
+
+        
+    [self.brain demarrer];
+    CLLocation *location = [self.brain getLocation];
         
         
-        CLLocation *location = [self.brain getLocation];
         
-        
-        
-        [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
-        [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
-        [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.distanceTotal]];
-        [button setEnabled:YES];
-                 NSLog(@"True");
-    
-    }
-    else {
-        [longitude setText: @"Activer la localisation"];
-        [button setEnabled:NO];
-         NSLog(@"false");
-    }
+    [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
+    [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
+    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.distanceTotal]];
+    [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.distanceDutour]];
+    [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.heureActuelleString]];
+    NSLog(@"heure actuel: %@",self.brain.heureActuelleString);
+
+   
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -73,6 +71,8 @@
     [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
     [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
     [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.distanceTotal]];
+    [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.distanceDutour]];
+    [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.heureActuelleString]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
