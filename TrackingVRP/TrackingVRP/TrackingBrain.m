@@ -12,7 +12,7 @@
 
 @implementation TrackingBrain
 
-@synthesize distanceTotal,distanceParHeure;
+@synthesize distanceTotal,distanceParHeure, distanceDutour;
 @synthesize heureActuelle,heureActuelleString,h24;
 @synthesize locMgr;
 @synthesize delegate;
@@ -34,8 +34,8 @@
         NSLog(@"%@",heureActuelleString);
         self.locMgr =  [[[CLLocationManager alloc] init] autorelease];
         self.locMgr.delegate = self;
-        //self.locMgr.distanceFilter = 10;
-       // self.locMgr.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+        self.locMgr.distanceFilter = 100;
+        self.locMgr.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
         [self.locMgr startUpdatingLocation];
     }
     return self;
@@ -57,6 +57,8 @@
 }
 
 
+
+
 - (void)locationManager:(CLLocationManager *)manager
 	didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
@@ -72,15 +74,12 @@
     }
     //On met à jour l'heure actuelle
     [self.heureActuelleString setString:tmp];
- 
-    //NSLog( [CLLocationManager locationServicesEnabled]);
     self.distanceParHeure += (double) [oldLocation distanceFromLocation:newLocation];
     self.distanceTotal += (double) [oldLocation distanceFromLocation:newLocation];
+    //self.distanceDutour = (double) [oldLocation distanceFromLocation:newLocation];
     NSLog(@"%f, %f", newLocation.coordinate.longitude, newLocation.coordinate.latitude);
 }
 
--(double) calcultDistanceIntermediaireFrom: (const CLLocation *) previousLocation to: (const CLLocation *) myLocation{
-    return 0;
-}
+
 
 @end

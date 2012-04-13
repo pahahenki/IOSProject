@@ -22,6 +22,7 @@
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, retain) CLLocationManager *locMgr;
 @property (nonatomic) double distanceTotal;
+@property (nonatomic) double distanceDutour;
 @property (nonatomic) double distanceParHeure;
 @property (nonatomic, retain) NSDate *heureActuelle;
 @property (nonatomic, retain) NSMutableString *heureActuelleString;
@@ -29,8 +30,6 @@
 
 
 
-
--(double) calcultDistanceIntermediaireFrom: (const CLLocation *) previousLocation to: (const CLLocation *) myLocation;
 
 -(CLLocation *) getLocation;
 

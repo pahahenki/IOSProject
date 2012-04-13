@@ -27,12 +27,15 @@
     [super viewDidLoad];
     brain = [[TrackingBrain alloc] init];
     if ( [CLLocationManager locationServicesEnabled]) {
+        
+        
         CLLocation *location = [self.brain getLocation];
         
         
         
         [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
         [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
+        [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.distanceTotal]];
         [button setEnabled:YES];
                  NSLog(@"True");
     
