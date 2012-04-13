@@ -13,21 +13,39 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize viewController = _viewController;
+@synthesize navigationController;
 
 - (void)dealloc
 {
     [_window release];
-    [_viewController release];
+    [navigationController release]; 
     [super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    /*self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
     self.window.rootViewController = self.viewController;
+    [self.window makeKeyAndVisible];
+    return YES;*/
+    
+    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    navigationController = [[UINavigationController alloc] init];
+    
+    [navigationController setTitle:@"Tracking VRP"];
+    
+     
+    
+    ViewController *contr = [[[ViewController alloc] init] autorelease];
+    
+    [navigationController pushViewController:contr animated:YES];
+    
+    
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     return YES;
 }

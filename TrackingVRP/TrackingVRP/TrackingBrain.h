@@ -33,6 +33,7 @@
 
 -(CLLocation *) getLocation;
 -(void) demarrer;
+-(void) arreter;
 
 
 @end

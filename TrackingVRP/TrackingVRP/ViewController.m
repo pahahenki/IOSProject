@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "GraphViewController.h"
 
 
 
@@ -30,7 +31,7 @@
     brain = [[TrackingBrain alloc] init];
 
         
-    [self.brain demarrer];
+    
     CLLocation *location = [self.brain getLocation];
         
         
@@ -64,6 +65,14 @@
     [super dealloc];
 }
 
+- (IBAction)Graph:(id)sender{
+    
+    GraphViewController *gcal = [[[GraphViewController alloc] init] autorelease];
+    
+    [self.navigationController pushViewController:gcal animated:YES];
+}
+
+
 
 - (IBAction)locateMe:(UIButton*)sender{
     CLLocation *location = [self.brain getLocation];
@@ -74,6 +83,16 @@
     [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.distanceDutour]];
     [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.heureActuelleString]];
 }
+
+- (IBAction)startMe:(UIButton*)sender{
+    [self.brain demarrer];
+    
+}
+
+-(IBAction)stopMe:(UIButton *)sender{
+    [self.brain arreter];
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

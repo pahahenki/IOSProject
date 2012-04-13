@@ -30,5 +30,8 @@
 @property(nonatomic,retain) TrackingBrain *brain;
 
 -(IBAction)locateMe:(UIButton*) sender;
+-(IBAction)startMe:(UIButton*) sender;
+-(IBAction)stopMe:(UIButton*) sender;
+- (IBAction)Graph:(id)sender;
 
 @end

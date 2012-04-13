@@ -60,6 +60,11 @@
     self.locMgr.desiredAccuracy = kCLLocationAccuracyHundredMeters;
 }
 
+-(void) arreter{
+    [self.locMgr stopUpdatingLocation];
+
+}
+
 -(CLLocation *) getLocation{
     return self.locMgr.location;
 }

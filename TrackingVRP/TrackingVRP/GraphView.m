@@ -1,17 +1,16 @@
 //
-//  TrakingView.m
-//  TrakingVRP
+//  GraphView.m
+//  TrackingVRP
 //
-//  Created by SWAN ENGILBERGE on 04/04/12.
+//  Created by SWAN ENGILBERGE on 13/04/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "TrackingView.h"
-#import <CoreLocation/CoreLocation.h>
-
-@implementation TrackingView
+#import "GraphView.h"
 
 
+
+@implementation GraphView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -21,7 +20,6 @@
     }
     return self;
 }
-
 
 
 
