@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GraphView.h"
+#import "CorePlot-CocoaTouch.h"
 
-@interface GraphViewController : UIViewController <GraphViewDelegate>{
-
+@interface GraphViewController : UIViewController  <CPTPlotDataSource> {
+    NSMutableArray *dataForPlot;
+    CPTXYGraph *graph;
 }
+
+@property(readwrite, retain, nonatomic) NSMutableArray *dataForPlot;
 
 @end
