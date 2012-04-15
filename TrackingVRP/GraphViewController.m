@@ -34,6 +34,12 @@
     return [[dataForPlot objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
 }
 
+-(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index{ 
+    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:[NSString 
+                                                                  stringWithFormat:@"%f", [[[self.dataForPlot objectAtIndex: index] objectForKey:@"y"] floatValue]]] ; 
+    return textLayer; 
+    
+}
 
 
 - (void)viewDidLoad
@@ -99,15 +105,28 @@
     //un point tout les 50m
     
     // Ligne du graphique
-	CPTScatterPlot *boundLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
-    CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-    lineStyle.miterLimit = 10.0f;
-	lineStyle.lineWidth = 3.0f;
-	lineStyle.lineColor = [CPTColor redColor];
-    boundLinePlot.dataLineStyle = lineStyle;
-    boundLinePlot.identifier = @"Red Plot";
-    boundLinePlot.dataSource = self;
-	[graph addPlot:boundLinePlot];
+//	CPTScatterPlot *boundLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+//    CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
+//    lineStyle.miterLimit = 10.0f;
+//	lineStyle.lineWidth = 3.0f;
+//	lineStyle.lineColor = [CPTColor redColor];
+//    boundLinePlot.dataLineStyle = lineStyle;
+//    boundLinePlot.identifier = @"Red Plot";
+//    boundLinePlot.dataSource = self;
+//	[graph addPlot:boundLinePlot];
+
+
+    // barPlot
+    //    CPTMutableTextStyle *myTextStyle = [[[CPTMutableTextStyle alloc] init] autorelease];
+    //    myTextStyle.color = [CPTColor redColor];
+    CPTBarPlot *barPlot = [[CPTBarPlot tubularBarPlotWithColor:[CPTColor redColor] horizontalBars:NO] autorelease];
+    //    barPlot.labelTextStyle = myTextStyle;
+    barPlot.delegate = self;
+    barPlot.baseValue = CPTDecimalFromString(@"0");
+    barPlot.dataSource = self;
+    [graph addPlot:barPlot];
+    
+    
 }
 
 - (void)viewDidUnload
