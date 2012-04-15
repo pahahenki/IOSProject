@@ -8,25 +8,25 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "Sauvegarde.h"
+
+
+
 
 @interface TrackingBrain : NSObject <CLLocationManagerDelegate> {
     CLLocationManager *locMgr;
     NSDate *heureActuelle;
     NSDateFormatter *timeFormatter;
-    NSMutableString *heureActuelleString;
     //le tableau des distances pour chaque heure de la journée (pour le graphe)
-    NSMutableArray *h24;
     id delegate;
+    Sauvegarde *donnee;
 }
 
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, retain) CLLocationManager *locMgr;
-@property (nonatomic) double distanceTotal;
-@property (nonatomic) double distanceDutour;
-@property (nonatomic) double distanceParHeure;
 @property (nonatomic, retain) NSDate *heureActuelle;
-@property (nonatomic, retain) NSMutableString *heureActuelleString;
-@property (nonatomic, retain) NSMutableArray *h24;
+@property (nonatomic, retain) Sauvegarde *donnee;
+
 
 
 

@@ -19,6 +19,8 @@
 		5613BEE4152C47560067328C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5613BEE3152C47560067328C /* CoreLocation.framework */; };
 		5613BEEB152C4BA40067328C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5613BEEA152C4BA40067328C /* ViewController.m */; };
 		5613BEF0152C4C2E0067328C /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5613BEEE152C4C2E0067328C /* ViewController.xib */; };
+		567B301A153B23F600F44AE3 /* TrackingBrainDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 567B3019153B23F600F44AE3 /* TrackingBrainDelegate.m */; };
+		567B301D153B42BE00F44AE3 /* Sauvegarde.m in Sources */ = {isa = PBXBuildFile; fileRef = 567B301C153B42BE00F44AE3 /* Sauvegarde.m */; };
 		56A75E011538775C000A3ED5 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A75DFF1538775C000A3ED5 /* GraphViewController.m */; };
 		56A75E021538775C000A3ED5 /* GraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56A75E001538775C000A3ED5 /* GraphViewController.xib */; };
 /* End PBXBuildFile section */
@@ -117,11 +119,14 @@
 		5613BED8152C46DD0067328C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5613BED9152C46DD0067328C /* TrackingBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingBrain.h; sourceTree = "<group>"; };
 		5613BEDA152C46DD0067328C /* TrackingBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingBrain.m; sourceTree = "<group>"; };
-		5613BEDB152C46DD0067328C /* TrackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingView.h; sourceTree = "<group>"; };
 		5613BEE3152C47560067328C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5613BEE9152C4BA40067328C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		5613BEEA152C4BA40067328C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		5613BEEE152C4C2E0067328C /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		567B3018153B23F600F44AE3 /* TrackingBrainDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingBrainDelegate.h; sourceTree = "<group>"; };
+		567B3019153B23F600F44AE3 /* TrackingBrainDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingBrainDelegate.m; sourceTree = "<group>"; };
+		567B301B153B42BE00F44AE3 /* Sauvegarde.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sauvegarde.h; sourceTree = "<group>"; };
+		567B301C153B42BE00F44AE3 /* Sauvegarde.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sauvegarde.m; sourceTree = "<group>"; };
 		56A75DFE1538775C000A3ED5 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphViewController.h; path = ../GraphViewController.h; sourceTree = "<group>"; };
 		56A75DFF1538775C000A3ED5 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphViewController.m; path = ../GraphViewController.m; sourceTree = "<group>"; };
 		56A75E001538775C000A3ED5 /* GraphViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GraphViewController.xib; path = ../GraphViewController.xib; sourceTree = "<group>"; };
@@ -270,8 +275,11 @@
 				5613BED7152C46DD0067328C /* AppDelegate.h */,
 				5613BED8152C46DD0067328C /* AppDelegate.m */,
 				5613BED9152C46DD0067328C /* TrackingBrain.h */,
+				567B301B153B42BE00F44AE3 /* Sauvegarde.h */,
+				567B301C153B42BE00F44AE3 /* Sauvegarde.m */,
 				5613BEDA152C46DD0067328C /* TrackingBrain.m */,
-				5613BEDB152C46DD0067328C /* TrackingView.h */,
+				567B3018153B23F600F44AE3 /* TrackingBrainDelegate.h */,
+				567B3019153B23F600F44AE3 /* TrackingBrainDelegate.m */,
 				5613BEE9152C4BA40067328C /* ViewController.h */,
 				5613BEEA152C4BA40067328C /* ViewController.m */,
 				5613BEEE152C4C2E0067328C /* ViewController.xib */,
@@ -359,6 +367,8 @@
 				5613BEE0152C46DD0067328C /* TrackingBrain.m in Sources */,
 				5613BEEB152C4BA40067328C /* ViewController.m in Sources */,
 				56A75E011538775C000A3ED5 /* GraphViewController.m in Sources */,
+				567B301A153B23F600F44AE3 /* TrackingBrainDelegate.m in Sources */,
+				567B301D153B42BE00F44AE3 /* Sauvegarde.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

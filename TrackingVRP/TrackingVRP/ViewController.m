@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "GraphViewController.h"
+#import <CoreLocation/CLLocationManager.h>
 
 
 
@@ -38,11 +39,11 @@
         
     [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
     [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
-    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.distanceTotal]];
-    [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.distanceDutour]];
-    [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.heureActuelleString]];
-    NSLog(@"heure actuel: %@",self.brain.heureActuelleString);
-
+    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.donnee.distanceTotal]];
+    [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.donnee.distanceDutour]];
+    [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.donnee.heureActuelleString]];
+    NSLog(@"heure actuel: %@",self.brain.donnee.heureActuelleString);
+    [button setEnabled:NO];
    
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -67,30 +68,49 @@
 
 - (IBAction)Graph:(id)sender{
     
+
+
+
+    
+     
     GraphViewController *gcal = [[[GraphViewController alloc] init] autorelease];
     
+    
     [self.navigationController pushViewController:gcal animated:YES];
-}
 
+}
 
 
 - (IBAction)locateMe:(UIButton*)sender{
     CLLocation *location = [self.brain getLocation];
+    NSLog(@"%f", [[location timestamp] timeIntervalSinceNow] );
 
     [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
     [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
-    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.distanceTotal]];
-    [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.distanceDutour]];
-    [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.heureActuelleString]];
+    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.donnee.distanceTotal]];
+    [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.donnee.distanceDutour]];
+    [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.donnee.heureActuelleString]];
 }
 
 - (IBAction)startMe:(UIButton*)sender{
-    [self.brain demarrer];
+    
+    NSLog(@"%s", [CLLocationManager locationServicesEnabled]? "true" : "false");
+    if ([CLLocationManager locationServicesEnabled]== YES) {
+        [self.brain demarrer];
+        [button setEnabled:YES];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"service localisation" message:@"Localisation impossible, merci d'activer votre service de localisation "delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+
     
 }
 
 -(IBAction)stopMe:(UIButton *)sender{
-    [self.brain arreter];
+        [self.brain arreter];
+        [button setEnabled:NO];
+    
 }
 
 

@@ -10,17 +10,10 @@
 
 
 
+
 @implementation GraphViewController
 
 @synthesize dataForPlot;
-
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
-    return [dataForPlot count];
-}
-
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index  {
-    return [[dataForPlot objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +23,18 @@
     }
     return self;
 }
+
+
+
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
+    return [dataForPlot count];
+}
+
+-(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index  {
+    return [[dataForPlot objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+}
+
+
 
 - (void)viewDidLoad
 {
@@ -41,6 +46,7 @@
     //Juste des données de test
     //Il faudra traiter cette partie lors dans le ViewController dans le bouton qui affiche le graphe
     //A ce moment là les données du tableau h24 seront copiés dans dataForPlot
+    
 	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:24];
 	NSUInteger i;
 	for ( i = 0; i < 24; i++ ) {
@@ -49,6 +55,8 @@
         [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
     }
     self.dataForPlot = contentArray;
+    
+    
     /****************/
     /****************/
     
@@ -66,7 +74,7 @@
 	graph.paddingRight = 0.0;
 	graph.paddingBottom = 0.0;
     
-    CPTGraphHostingView *graphHostingView = [[CPTGraphHostingView alloc] initWithFrame:CGRectMake(0, 0, 300, 450)];
+    CPTGraphHostingView *graphHostingView = [[CPTGraphHostingView alloc] initWithFrame:CGRectMake(0, 0, 320, 375)];
     graphHostingView.collapsesLayers = NO;
     [hostingView addSubview:graphHostingView];
     
@@ -104,6 +112,7 @@
 
 - (void)viewDidUnload
 {
+    [graph release];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

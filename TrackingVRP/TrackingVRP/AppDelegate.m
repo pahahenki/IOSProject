@@ -10,6 +10,7 @@
 
 #import "ViewController.h"
 
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -74,6 +75,8 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    
+    
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 

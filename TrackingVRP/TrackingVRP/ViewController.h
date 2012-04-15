@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TrackingView.h"
 #import "TrackingBrain.h"
 
-@interface ViewController : UIViewController <TrackingViewDelegate>{
+@interface ViewController : UIViewController{
     
     IBOutlet UILabel *longitude;
     IBOutlet UILabel *latitude;
@@ -28,6 +27,9 @@
 @property(nonatomic,retain) UILabel *heureActuel;
 @property(nonatomic,retain) UIButton *button;
 @property(nonatomic,retain) TrackingBrain *brain;
+
+
+
 
 -(IBAction)locateMe:(UIButton*) sender;
 -(IBAction)startMe:(UIButton*) sender;

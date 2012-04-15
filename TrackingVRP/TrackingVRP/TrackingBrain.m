@@ -10,30 +10,29 @@
 #import "ViewController.h"
 
 
+
+
+
 @implementation TrackingBrain
 
-@synthesize distanceTotal,distanceParHeure, distanceDutour;
-@synthesize heureActuelleString;
-@synthesize h24;
+
 @synthesize heureActuelle;
 @synthesize locMgr;
 @synthesize delegate;
+@synthesize donnee;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.distanceTotal = 0;
-        self.distanceDutour = 0;
-        self.distanceParHeure = 0;
-        h24 = [[NSMutableArray alloc] initWithCapacity:24];
-        for(int i = 0; i < 24; i++){
-            [h24 insertObject:[NSNumber numberWithDouble:0] atIndex:i];
-        }
-        heureActuelle =  [[NSDate date] init];
+        
+        
+        //self.donnee = [[Sauvegarde alloc] init ];
+        self.donnee = [NSKeyedUnarchiver unarchiveObjectWithFile:@"donnee.classe"];
+        heureActuelle =  [NSDate date];
         timeFormatter = [[NSDateFormatter alloc] init];
         [timeFormatter setDateFormat:@"HH"];
-        heureActuelleString = [[NSMutableString alloc] initWithString:[timeFormatter stringFromDate:heureActuelle]];
+        self.donnee.heureActuelleString = [[NSMutableString alloc] initWithString:[timeFormatter stringFromDate:heureActuelle]];
         self.locMgr =  [[[CLLocationManager alloc] init] autorelease];
         self.locMgr.delegate = self;
 
@@ -43,10 +42,10 @@
 }
 
 -(void)dealloc{
-    [h24 dealloc];
+    [NSKeyedArchiver archiveRootObject:donnee toFile:@"donnee.classe"];
+    [donnee dealloc];
     [heureActuelle dealloc];
     [timeFormatter dealloc];
-    [heureActuelleString dealloc];
     [locMgr dealloc];
     [self.locMgr stopUpdatingLocation];
     [super dealloc];
@@ -77,25 +76,32 @@
            fromLocation:(CLLocation *)oldLocation
 {
     
-    self.heureActuelle = [[NSDate date] init];
+    
+    
+    heureActuelle = [NSDate date];
     NSString *tmp = [timeFormatter stringFromDate:self.heureActuelle];
     
+    
+    
     //On regarde si l'heure a changé
-    if(![tmp isEqualToString:self.heureActuelleString]){
+    if(![tmp isEqualToString:self.donnee.heureActuelleString]){
         //On met la distance parcourue par heure dans notre tableau
-        int index = [self.heureActuelleString intValue];
-        [h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithDouble:self.distanceParHeure]];
-        self.distanceParHeure = 0;
+        int index = [self.donnee.heureActuelleString intValue];
+        [self.donnee.h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithDouble:self.donnee.distanceParHeure]];
+        self.donnee.distanceParHeure = 0;
     }
     //On met à jour l'heure actuelle
-    [self.heureActuelleString setString:tmp];
+    [self.donnee.heureActuelleString setString:tmp];
     // calcule des distance uniquement si l'ancienne n'est pas egal a nil
     if (oldLocation != nil) {
-        self.distanceParHeure += (double) [oldLocation distanceFromLocation:newLocation];
-        self.distanceTotal += (double) [oldLocation distanceFromLocation:newLocation];
-        self.distanceDutour = (double) [oldLocation distanceFromLocation:newLocation];
-        NSLog(@"%f, %f", newLocation.coordinate.longitude, newLocation.coordinate.latitude);
+        self.donnee.distanceParHeure += (double) [oldLocation distanceFromLocation:newLocation];
+        self.donnee.distanceTotal += (double) [oldLocation distanceFromLocation:newLocation];
+        self.donnee.distanceDutour = (double) [oldLocation distanceFromLocation:newLocation];
+        NSLog(@"%f, %f, %s, temps: %f", newLocation.coordinate.longitude, newLocation.coordinate.latitude, [CLLocationManager locationServicesEnabled]? "true" : "false", [[newLocation timestamp] timeIntervalSinceDate:[oldLocation timestamp]]);
     }
+    [NSKeyedArchiver archiveRootObject:donnee toFile:@"donnee.classe"];
+
+    
     
 }
 
