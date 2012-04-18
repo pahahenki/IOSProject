@@ -19,7 +19,7 @@
     IBOutlet UIButton *button;
     TrackingBrain *brain;
 }
-
+@property (nonatomic, retain) NSMutableDictionary *dictFromFile;
 @property(nonatomic,retain) UILabel *longitude;
 @property(nonatomic,retain) UILabel *latitude;
 @property(nonatomic,retain) UILabel *distanceTotal;

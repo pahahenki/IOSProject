@@ -18,6 +18,7 @@
 
 @implementation ViewController
 
+@synthesize dictFromFile;
 @synthesize longitude;
 @synthesize latitude;
 @synthesize distanceTotal;
@@ -29,7 +30,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    brain = [[TrackingBrain alloc] init];
+    
+    // Charger le fichier .plist dans un tableau que l'on appelera  dictFromFileFinal
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"properties" ofType:@"plist"];
+    NSLog(@" objet %@ \n",path);
+    self.dictFromFile = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
+
+    
+    // creation du brain avec le Plist
+    brain = [[TrackingBrain alloc] initWithDictionaryFromPlist:dictFromFile];
 
         
     
@@ -39,10 +48,10 @@
         
     [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
     [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
-    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.donnee.distanceTotal]];
-    [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.donnee.distanceDutour]];
-    [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.donnee.heureActuelleString]];
-    NSLog(@"heure actuel: %@",self.brain.donnee.heureActuelleString);
+    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.distanceTotal]];
+    [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.distanceDutour]];
+    [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.heureActuelleString]];
+    NSLog(@"heure actuel: %@",self.brain.heureActuelleString);
     [button setEnabled:NO];
    
 	// Do any additional setup after loading the view, typically from a nib.
@@ -50,6 +59,8 @@
 
 - (void)viewDidUnload
 {
+
+    [dictFromFile release];
     [longitude release];
     [latitude release];
     [brain release];
@@ -87,9 +98,17 @@
 
     [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
     [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
-    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.donnee.distanceTotal]];
-    [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.donnee.distanceDutour]];
-    [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.donnee.heureActuelleString]];
+    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.distanceTotal]];
+    [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.distanceDutour]];
+    [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.heureActuelleString]];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"properties" ofType:@"plist"];
+    [self.dictFromFile setObject:@"salutt" forKey:@"heureActuelle"];
+    for (int i =0; i < [dictFromFile count]; i++) {
+        NSLog(@" sauvegarde %@ \n", [[dictFromFile allValues] objectAtIndex:i]);
+    }
+    if([dictFromFile writeToFile:path atomically:YES]){
+        NSLog(@"OK");
+    }
 }
 
 - (IBAction)startMe:(UIButton*)sender{

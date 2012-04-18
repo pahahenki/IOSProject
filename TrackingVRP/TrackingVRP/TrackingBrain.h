@@ -19,18 +19,30 @@
     NSDateFormatter *timeFormatter;
     //le tableau des distances pour chaque heure de la journée (pour le graphe)
     id delegate;
-    Sauvegarde *donnee;
+    NSMutableArray *h24;
+    double distanceTotal;
+    double distanceDutour;
+    double distanceParHeure;
+    NSMutableString *heureActuelleString;
+    
+    
 }
 
+
+@property (nonatomic) double distanceTotal;
+@property (nonatomic) double distanceDutour;
+@property (nonatomic) double distanceParHeure;
+@property (nonatomic, retain) NSMutableString *heureActuelleString;
+@property (nonatomic, retain) NSMutableArray *h24;
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, retain) CLLocationManager *locMgr;
 @property (nonatomic, retain) NSDate *heureActuelle;
-@property (nonatomic, retain) Sauvegarde *donnee;
 
 
 
 
 
+- (id) initWithDictionaryFromPlist: (NSDictionary *) dictionnary;
 -(CLLocation *) getLocation;
 -(void) demarrer;
 -(void) arreter;
