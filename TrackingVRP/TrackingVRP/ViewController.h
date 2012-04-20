@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TrackingBrain.h"
+#import "GraphViewController.h"
 
-@interface ViewController : UIViewController{
+@interface ViewController : UIViewController <TrackingBrainDelegate>{
     
     IBOutlet UILabel *longitude;
     IBOutlet UILabel *latitude;
@@ -18,6 +19,7 @@
     IBOutlet UILabel *heureActuel;
     IBOutlet UIButton *button;
     TrackingBrain *brain;
+    GraphViewController *graph;
 }
 @property (nonatomic, retain) NSMutableDictionary *dictFromFile;
 @property(nonatomic,retain) UILabel *longitude;
@@ -27,6 +29,7 @@
 @property(nonatomic,retain) UILabel *heureActuel;
 @property(nonatomic,retain) UIButton *button;
 @property(nonatomic,retain) TrackingBrain *brain;
+@property(nonatomic, retain) GraphViewController *graph;
 
 
 

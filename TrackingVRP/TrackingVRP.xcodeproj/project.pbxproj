@@ -21,7 +21,6 @@
 		5613BEF0152C4C2E0067328C /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5613BEEE152C4C2E0067328C /* ViewController.xib */; };
 		5641D575153C3B2A000825D3 /* properties.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5641D574153C3B2A000825D3 /* properties.plist */; };
 		567B301A153B23F600F44AE3 /* TrackingBrainDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 567B3019153B23F600F44AE3 /* TrackingBrainDelegate.m */; };
-		567B301D153B42BE00F44AE3 /* Sauvegarde.m in Sources */ = {isa = PBXBuildFile; fileRef = 567B301C153B42BE00F44AE3 /* Sauvegarde.m */; };
 		56A75E011538775C000A3ED5 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A75DFF1538775C000A3ED5 /* GraphViewController.m */; };
 		56A75E021538775C000A3ED5 /* GraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56A75E001538775C000A3ED5 /* GraphViewController.xib */; };
 /* End PBXBuildFile section */
@@ -127,8 +126,6 @@
 		5641D574153C3B2A000825D3 /* properties.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = properties.plist; sourceTree = "<group>"; };
 		567B3018153B23F600F44AE3 /* TrackingBrainDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingBrainDelegate.h; sourceTree = "<group>"; };
 		567B3019153B23F600F44AE3 /* TrackingBrainDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingBrainDelegate.m; sourceTree = "<group>"; };
-		567B301B153B42BE00F44AE3 /* Sauvegarde.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sauvegarde.h; sourceTree = "<group>"; };
-		567B301C153B42BE00F44AE3 /* Sauvegarde.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sauvegarde.m; sourceTree = "<group>"; };
 		56A75DFE1538775C000A3ED5 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphViewController.h; path = ../GraphViewController.h; sourceTree = "<group>"; };
 		56A75DFF1538775C000A3ED5 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphViewController.m; path = ../GraphViewController.m; sourceTree = "<group>"; };
 		56A75E001538775C000A3ED5 /* GraphViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GraphViewController.xib; path = ../GraphViewController.xib; sourceTree = "<group>"; };
@@ -277,14 +274,13 @@
 				5613BED7152C46DD0067328C /* AppDelegate.h */,
 				5613BED8152C46DD0067328C /* AppDelegate.m */,
 				5613BED9152C46DD0067328C /* TrackingBrain.h */,
-				567B301B153B42BE00F44AE3 /* Sauvegarde.h */,
-				567B301C153B42BE00F44AE3 /* Sauvegarde.m */,
 				5613BEDA152C46DD0067328C /* TrackingBrain.m */,
 				567B3018153B23F600F44AE3 /* TrackingBrainDelegate.h */,
 				567B3019153B23F600F44AE3 /* TrackingBrainDelegate.m */,
 				5613BEE9152C4BA40067328C /* ViewController.h */,
 				5613BEEA152C4BA40067328C /* ViewController.m */,
 				5613BEEE152C4C2E0067328C /* ViewController.xib */,
+				5641D574153C3B2A000825D3 /* properties.plist */,
 				5613BEC1152C46990067328C /* Supporting Files */,
 			);
 			path = TrackingVRP;
@@ -294,7 +290,6 @@
 			isa = PBXGroup;
 			children = (
 				5613BEC2152C46990067328C /* TrackingVRP-Info.plist */,
-				5641D574153C3B2A000825D3 /* properties.plist */,
 				5613BEC3152C46990067328C /* InfoPlist.strings */,
 				5613BEC6152C46990067328C /* main.m */,
 				5613BEC8152C46990067328C /* TrackingVRP-Prefix.pch */,
@@ -372,7 +367,6 @@
 				5613BEEB152C4BA40067328C /* ViewController.m in Sources */,
 				56A75E011538775C000A3ED5 /* GraphViewController.m in Sources */,
 				567B301A153B23F600F44AE3 /* TrackingBrainDelegate.m in Sources */,
-				567B301D153B42BE00F44AE3 /* Sauvegarde.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,4 +17,7 @@
 @property(readwrite, retain, nonatomic) NSMutableArray *dataForPlot;
 
 
+-(void) dessinerGraph;
+-(id) initWithData: (NSMutableArray *) h24;
+
 @end

@@ -8,12 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "Sauvegarde.h"
 
+@class TrackingBrain;
 
+@protocol TrackingBrainDelegate
+
+-(void) update:(double) distance for: (TrackingBrain *)requestor;
+
+@end
 
 
 @interface TrackingBrain : NSObject <CLLocationManagerDelegate> {
+    
+    id <TrackingBrainDelegate> brainDelegate;
     CLLocationManager *locMgr;
     NSDate *heureActuelle;
     NSDateFormatter *timeFormatter;
@@ -28,7 +35,7 @@
     
 }
 
-
+@property (nonatomic, assign) id <TrackingBrainDelegate> brainDelegate;
 @property (nonatomic) double distanceTotal;
 @property (nonatomic) double distanceDutour;
 @property (nonatomic) double distanceParHeure;

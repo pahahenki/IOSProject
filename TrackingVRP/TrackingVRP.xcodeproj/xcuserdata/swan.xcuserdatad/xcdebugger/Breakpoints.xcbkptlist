@@ -19,11 +19,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TrackingVRP/TrackingBrain.m"
-         timestampString = "356371256.711686"
+         timestampString = "356604526.76921"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "76"
-         endingLineNumber = "76"
+         startingLineNumber = "77"
+         endingLineNumber = "77"
          landmarkName = "-dealloc"
          landmarkType = "5">
       </FileBreakpoint>
@@ -32,7 +32,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TrackingVRP/ViewController.m"
-         timestampString = "356373169.135363"
+         timestampString = "356604526.76921"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "46"
@@ -45,7 +45,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TrackingVRP/ViewController.m"
-         timestampString = "356373169.135363"
+         timestampString = "356604526.76921"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "44"
@@ -58,11 +58,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TrackingVRP/ViewController.h"
-         timestampString = "356193868.208287"
+         timestampString = "356599738.00964"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "12"
-         endingLineNumber = "12"
+         startingLineNumber = "13"
+         endingLineNumber = "13"
          landmarkName = "@interface ViewController"
          landmarkType = "2">
       </FileBreakpoint>
@@ -71,11 +71,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TrackingVRP/TrackingBrain.h"
-         timestampString = "356207396.605949"
+         timestampString = "356603344.029366"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "16"
-         endingLineNumber = "16"
+         startingLineNumber = "21"
+         endingLineNumber = "21"
          landmarkName = "@interface TrackingBrain"
          landmarkType = "2">
       </FileBreakpoint>
@@ -84,13 +84,26 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "TrackingVRP/TrackingBrain.h"
-         timestampString = "356270693.054163"
+         timestampString = "356603344.029366"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "32"
-         endingLineNumber = "32"
+         startingLineNumber = "39"
+         endingLineNumber = "39"
          landmarkName = "distanceTotal"
          landmarkType = "19">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "GraphViewController.m"
+         timestampString = "356601483.654638"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "33"
+         endingLineNumber = "33"
+         landmarkName = "-initWithData:"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

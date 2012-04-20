@@ -12,9 +12,7 @@
 
 
 
-@interface ViewController ()
 
-@end
 
 @implementation ViewController
 
@@ -26,6 +24,7 @@
 @synthesize heureActuel;
 @synthesize brain;
 @synthesize button;
+@synthesize graph;
 
 - (void)viewDidLoad
 {
@@ -39,6 +38,7 @@
     
     // creation du brain avec le Plist
     brain = [[TrackingBrain alloc] initWithDictionaryFromPlist:dictFromFile];
+    brain.brainDelegate = self;
 
         
     
@@ -84,10 +84,13 @@
 
     
      
-    GraphViewController *gcal = [[[GraphViewController alloc] init] autorelease];
+    graph = [[[GraphViewController alloc] initWithData:self.brain.h24] autorelease];
     
+
+   
+    [graph dessinerGraph];
     
-    [self.navigationController pushViewController:gcal animated:YES];
+    [self.navigationController pushViewController:graph animated:YES];
 
 }
 
@@ -101,7 +104,9 @@
     [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.distanceTotal]];
     [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.distanceDutour]];
     [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.heureActuelleString]];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"properties" ofType:@"plist"];
+    NSString *resourceDirectory = [[NSBundle mainBundle] resourcePath];
+    NSString *path = [resourceDirectory stringByAppendingPathComponent:@"properties.plist"];
+    //NSString *path = [[NSBundle mainBundle] pathForResource:@"properties" ofType:@"plist"];
     [self.dictFromFile setObject:@"salutt" forKey:@"heureActuelle"];
     for (int i =0; i < [dictFromFile count]; i++) {
         NSLog(@" sauvegarde %@ \n", [[dictFromFile allValues] objectAtIndex:i]);
@@ -127,10 +132,20 @@
 }
 
 -(IBAction)stopMe:(UIButton *)sender{
-        [self.brain arreter];
-        [button setEnabled:NO];
+    
+    [self.brain arreter];
+    [button setEnabled:NO];
     
 }
+
+-(void)update:(double) distance for:(TrackingBrain *) requestor{
+
+    NSLog(@"delegate!!!!!");
+    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", distance]];
+
+
+}
+
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

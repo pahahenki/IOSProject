@@ -24,6 +24,23 @@
     return self;
 }
 
+-(id) initWithData: (NSMutableArray *) h24{
+    self = [super init];
+    if (self){
+        NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:24];
+        NSUInteger i;
+        for ( i = 0; i < 24; i++ ) {
+            id x = [NSNumber numberWithFloat:i + 0.5] ;
+            id y = [h24 objectAtIndex:i];
+            [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
+            
+        }
+        self.dataForPlot = contentArray;
+    }
+    return self;
+    
+}
+
 
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
@@ -45,28 +62,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
-    /***************/
-    /***************/
-    //Juste des données de test
-    //Il faudra traiter cette partie lors dans le ViewController dans le bouton qui affiche le graphe
-    //A ce moment là les données du tableau h24 seront copiés dans dataForPlot
-    
-	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:24];
-	NSUInteger i;
-	for ( i = 0; i < 24; i++ ) {
-        id x = [NSNumber numberWithFloat:i];
-        id y = [NSNumber numberWithFloat:(rand() / (float)RAND_MAX) * 1000];
-        [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
-    }
-    self.dataForPlot = contentArray;
-    
-    
-    /****************/
-    /****************/
+}
+
+- (void)viewDidUnload
+{
+    [graph release];
+    [super viewDidUnload];
+
+}
+
+-(void) dessinerGraph{
     
     // Creation graphique
+
+    NSLog(@"coucou ");
+
     graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     
     // Theme du graphique
@@ -105,17 +116,17 @@
     //un point tout les 50m
     
     // Ligne du graphique
-//	CPTScatterPlot *boundLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
-//    CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-//    lineStyle.miterLimit = 10.0f;
-//	lineStyle.lineWidth = 3.0f;
-//	lineStyle.lineColor = [CPTColor redColor];
-//    boundLinePlot.dataLineStyle = lineStyle;
-//    boundLinePlot.identifier = @"Red Plot";
-//    boundLinePlot.dataSource = self;
-//	[graph addPlot:boundLinePlot];
-
-
+    //	CPTScatterPlot *boundLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    //    CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
+    //    lineStyle.miterLimit = 10.0f;
+    //	lineStyle.lineWidth = 3.0f;
+    //	lineStyle.lineColor = [CPTColor redColor];
+    //    boundLinePlot.dataLineStyle = lineStyle;
+    //    boundLinePlot.identifier = @"Red Plot";
+    //    boundLinePlot.dataSource = self;
+    //	[graph addPlot:boundLinePlot];
+    
+    
     // barPlot
     //    CPTMutableTextStyle *myTextStyle = [[[CPTMutableTextStyle alloc] init] autorelease];
     //    myTextStyle.color = [CPTColor redColor];
@@ -123,23 +134,18 @@
     //    barPlot.labelTextStyle = myTextStyle;
     barPlot.delegate = self;
     barPlot.baseValue = CPTDecimalFromString(@"0");
+    for (int i = 0; i < [dataForPlot count]; i++) {
+        NSLog(@"%@", [dataForPlot objectAtIndex:i]);
+    }
     barPlot.dataSource = self;
     [graph addPlot:barPlot];
-    
-    
-}
 
-- (void)viewDidUnload
-{
-    [graph release];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
 }
 
 @end

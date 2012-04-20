@@ -21,6 +21,7 @@
 @synthesize heureActuelle;
 @synthesize locMgr;
 @synthesize delegate;
+@synthesize brainDelegate;
 
 
 - (id)init
@@ -109,13 +110,13 @@
     
     heureActuelle = [NSDate date];
     NSString *tmp = [timeFormatter stringFromDate:self.heureActuelle];
-    
+    int index = [self.heureActuelleString intValue];
     
     
     //On regarde si l'heure a changé
     if(![tmp isEqualToString:self.heureActuelleString]){
         //On met la distance parcourue par heure dans notre tableau
-        int index = [self.heureActuelleString intValue];
+        
         [self.h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithDouble:self.distanceParHeure]];
         self.distanceParHeure = 0;
     }
@@ -126,9 +127,12 @@
         self.distanceParHeure += (double) [oldLocation distanceFromLocation:newLocation];
         self.distanceTotal += (double) [oldLocation distanceFromLocation:newLocation];
         self.distanceDutour = (double) [oldLocation distanceFromLocation:newLocation];
+        [self.h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithDouble:self.distanceParHeure]];
         NSLog(@"%f, %f, %s, temps: %f", newLocation.coordinate.longitude, newLocation.coordinate.latitude, [CLLocationManager locationServicesEnabled]? "true" : "false", [[newLocation timestamp] timeIntervalSinceDate:[oldLocation timestamp]]);
+        [brainDelegate update:self.distanceTotal for:self];
+        NSLog(@"delegate: %@", brainDelegate);
     }
-
+    
     
     
 }
