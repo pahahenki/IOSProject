@@ -32,6 +32,7 @@
         for ( i = 0; i < 24; i++ ) {
             id x = [NSNumber numberWithFloat:i + 0.5] ;
             id y = [h24 objectAtIndex:i];
+            NSLog(@"y = %@", y);
             [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
             
         }
@@ -52,8 +53,12 @@
 }
 
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index{ 
-    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:[NSString 
-                                                                  stringWithFormat:@"%f", [[[self.dataForPlot objectAtIndex: index] objectForKey:@"y"] floatValue]]] ; 
+    NSString *text = @"";
+    if ([[[self.dataForPlot objectAtIndex: index] objectForKey:@"y"] floatValue] !=  0) {
+        text = [NSString stringWithFormat:@"%.0f", [[[self.dataForPlot objectAtIndex: index] objectForKey:@"y"] floatValue]];
+    }
+    
+    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:text]; 
     return textLayer; 
     
 }
@@ -76,7 +81,7 @@
     
     // Creation graphique
 
-    NSLog(@"coucou ");
+   
 
     graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     
@@ -101,7 +106,7 @@
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.2) length:CPTDecimalFromFloat(8)]; // Les 6 premières heures
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-130) length:CPTDecimalFromInt(1000)];// environ 800m
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-100) length:CPTDecimalFromInt(1000)];// environ 800m
     
     // Axe X
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
@@ -130,13 +135,12 @@
     // barPlot
     //    CPTMutableTextStyle *myTextStyle = [[[CPTMutableTextStyle alloc] init] autorelease];
     //    myTextStyle.color = [CPTColor redColor];
+   
     CPTBarPlot *barPlot = [[CPTBarPlot tubularBarPlotWithColor:[CPTColor redColor] horizontalBars:NO] autorelease];
     //    barPlot.labelTextStyle = myTextStyle;
     barPlot.delegate = self;
     barPlot.baseValue = CPTDecimalFromString(@"0");
-    for (int i = 0; i < [dataForPlot count]; i++) {
-        NSLog(@"%@", [dataForPlot objectAtIndex:i]);
-    }
+
     barPlot.dataSource = self;
     [graph addPlot:barPlot];
 

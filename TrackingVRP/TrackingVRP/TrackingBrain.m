@@ -15,7 +15,7 @@
 
 @implementation TrackingBrain
 
-@synthesize distanceTotal,distanceParHeure, distanceDutour;
+@synthesize distanceTotal,distanceParHeure;
 @synthesize heureActuelleString;
 @synthesize h24;
 @synthesize heureActuelle;
@@ -31,11 +31,10 @@
         
         
         self.distanceTotal = 0;
-        self.distanceDutour = 0;
         self.distanceParHeure = 0;
         self.h24 = [[NSMutableArray alloc] initWithCapacity:24];
         for(int i = 0; i < 24; i++){
-            [h24 insertObject:[NSNumber numberWithDouble:0] atIndex:i];
+            [h24 insertObject:[NSNumber numberWithFloat:0] atIndex:i];
         }
         self.heureActuelle =  [NSDate date];
         timeFormatter = [[NSDateFormatter alloc] init];
@@ -57,8 +56,7 @@
         }
         self.distanceTotal = [[dictionnary objectForKey: @"distanceTotal"] doubleValue];
         self.distanceParHeure = [[dictionnary objectForKey: @"distanceHeure"] doubleValue];
-        //self.heureActuelleString = [dictionnary objectForKey: @"heureActuelle"];
-                self.h24 = [dictionnary objectForKey: @"h24"];
+        self.h24 = [dictionnary objectForKey: @"h24"];
         self.heureActuelle =  [NSDate date];
         timeFormatter = [[NSDateFormatter alloc] init];
         [timeFormatter setDateFormat:@"HH"];
@@ -86,7 +84,7 @@
 -(void) demarrer{
     [self.locMgr startUpdatingLocation];
     //self.locMgr.distanceFilter = 100;
-    self.locMgr.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    self.locMgr.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
 }
 
 -(void) arreter{
@@ -98,7 +96,17 @@
     return self.locMgr.location;
 }
 
-
+-(NSMutableDictionary *) getDicoForSave{
+    NSMutableDictionary *dico = [[NSMutableDictionary alloc] init ];
+    
+    
+    [dico setObject: [NSNumber numberWithFloat: self.distanceTotal]  forKey:@"distanceTotal"];
+    [dico setObject: self.h24  forKey:@"h24"];
+    
+    
+    return dico;
+    
+}
 
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -111,26 +119,24 @@
     heureActuelle = [NSDate date];
     NSString *tmp = [timeFormatter stringFromDate:self.heureActuelle];
     int index = [self.heureActuelleString intValue];
-    
-    
     //On regarde si l'heure a changé
     if(![tmp isEqualToString:self.heureActuelleString]){
         //On met la distance parcourue par heure dans notre tableau
         
-        [self.h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithDouble:self.distanceParHeure]];
+        [self.h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:self.distanceParHeure]];
         self.distanceParHeure = 0;
     }
     //On met à jour l'heure actuelle
     [self.heureActuelleString setString:tmp];
     // calcule des distance uniquement si l'ancienne n'est pas egal a nil
+    
+    
     if (oldLocation != nil) {
         self.distanceParHeure += (double) [oldLocation distanceFromLocation:newLocation];
         self.distanceTotal += (double) [oldLocation distanceFromLocation:newLocation];
-        self.distanceDutour = (double) [oldLocation distanceFromLocation:newLocation];
-        [self.h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithDouble:self.distanceParHeure]];
-        NSLog(@"%f, %f, %s, temps: %f", newLocation.coordinate.longitude, newLocation.coordinate.latitude, [CLLocationManager locationServicesEnabled]? "true" : "false", [[newLocation timestamp] timeIntervalSinceDate:[oldLocation timestamp]]);
-        [brainDelegate update:self.distanceTotal for:self];
-        NSLog(@"delegate: %@", brainDelegate);
+        [self.h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat: self.distanceParHeure]];
+        
+        [brainDelegate update:self.distanceTotal location:newLocation for:self];
     }
     
     

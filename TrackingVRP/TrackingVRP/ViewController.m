@@ -16,7 +16,7 @@
 
 @implementation ViewController
 
-@synthesize dictFromFile;
+
 @synthesize longitude;
 @synthesize latitude;
 @synthesize distanceTotal;
@@ -31,14 +31,21 @@
     [super viewDidLoad];
     
     // Charger le fichier .plist dans un tableau que l'on appelera  dictFromFileFinal
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"properties" ofType:@"plist"];
-    NSLog(@" objet %@ \n",path);
-    self.dictFromFile = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
-
+    
+    NSMutableDictionary *dictFromFile = [self load];
     
     // creation du brain avec le Plist
-    brain = [[TrackingBrain alloc] initWithDictionaryFromPlist:dictFromFile];
-    brain.brainDelegate = self;
+    if (!dictFromFile) {
+        dictFromFile = [[NSMutableDictionary alloc] init ];
+        self.brain = [[TrackingBrain alloc] init];
+    }
+    else {
+        self.brain = [[TrackingBrain alloc] initWithDictionaryFromPlist:dictFromFile];
+
+    }
+    
+    
+    self.brain.brainDelegate = self;
 
         
     
@@ -49,18 +56,14 @@
     [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
     [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
     [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.distanceTotal]];
-    [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.distanceDutour]];
-    [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.heureActuelleString]];
-    NSLog(@"heure actuel: %@",self.brain.heureActuelleString);
-    [button setEnabled:NO];
+
+
    
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)viewDidUnload
 {
-
-    [dictFromFile release];
+    
     [longitude release];
     [latitude release];
     [brain release];
@@ -70,6 +73,7 @@
 }
 
 -(void)dealloc{
+
     [longitude release];
     [latitude release];
     [brain release];
@@ -79,15 +83,10 @@
 
 - (IBAction)Graph:(id)sender{
     
-
-
-
+    [self save];
     
-     
     graph = [[[GraphViewController alloc] initWithData:self.brain.h24] autorelease];
     
-
-   
     [graph dessinerGraph];
     
     [self.navigationController pushViewController:graph animated:YES];
@@ -95,26 +94,24 @@
 }
 
 
-- (IBAction)locateMe:(UIButton*)sender{
-    CLLocation *location = [self.brain getLocation];
-    NSLog(@"%f", [[location timestamp] timeIntervalSinceNow] );
+- (IBAction)save:(UIButton*)sender{
+    
+    [self save];
+    
 
-    [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
-    [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
-    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.distanceTotal]];
-    [distancePartiel setText: [NSString stringWithFormat:@"distance du tour: %f", self.brain.distanceDutour]];
-    [heureActuel setText: [NSString stringWithFormat:@"heure: %@", self.brain.heureActuelleString]];
-    NSString *resourceDirectory = [[NSBundle mainBundle] resourcePath];
-    NSString *path = [resourceDirectory stringByAppendingPathComponent:@"properties.plist"];
-    //NSString *path = [[NSBundle mainBundle] pathForResource:@"properties" ofType:@"plist"];
-    [self.dictFromFile setObject:@"salutt" forKey:@"heureActuelle"];
-    for (int i =0; i < [dictFromFile count]; i++) {
-        NSLog(@" sauvegarde %@ \n", [[dictFromFile allValues] objectAtIndex:i]);
-    }
-    if([dictFromFile writeToFile:path atomically:YES]){
-        NSLog(@"OK");
-    }
 }
+
+- (IBAction)load:(UIButton*)sender{
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"properties.plist"];
+    
+    NSMutableDictionary *content = [[NSMutableDictionary alloc] initWithContentsOfFile:path ];
+    [distancePartiel setText: [content objectForKey:@"salut"]];
+    
+}
+
 
 - (IBAction)startMe:(UIButton*)sender{
     
@@ -132,18 +129,40 @@
 }
 
 -(IBAction)stopMe:(UIButton *)sender{
-    
+    [self save];
     [self.brain arreter];
     [button setEnabled:NO];
     
 }
 
--(void)update:(double) distance for:(TrackingBrain *) requestor{
+-(void)update:(double) distance location: (CLLocation*) newLocation for:(TrackingBrain *) requestor{
 
-    NSLog(@"delegate!!!!!");
+    
     [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", distance]];
+    [longitude setText: [NSString stringWithFormat:@"longitude: %f", newLocation.coordinate.longitude]];
+    [latitude setText: [NSString stringWithFormat:@"latitude: %f", newLocation.coordinate.latitude]];
 
 
+
+}
+
+- (NSMutableDictionary *)load{
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"properties.plist"];
+    
+    NSMutableDictionary *content = [[NSMutableDictionary alloc] initWithContentsOfFile:path ];
+    
+    return content;
+}
+
+- (void) save{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"properties.plist"];
+
+    [[self.brain getDicoForSave] writeToFile:path atomically:NO];
 }
 
 

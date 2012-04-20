@@ -21,7 +21,6 @@
     TrackingBrain *brain;
     GraphViewController *graph;
 }
-@property (nonatomic, retain) NSMutableDictionary *dictFromFile;
 @property(nonatomic,retain) UILabel *longitude;
 @property(nonatomic,retain) UILabel *latitude;
 @property(nonatomic,retain) UILabel *distanceTotal;
@@ -34,9 +33,12 @@
 
 
 
--(IBAction)locateMe:(UIButton*) sender;
+-(IBAction)save:(UIButton*) sender;
+-(IBAction)load:(UIButton*) sender;
 -(IBAction)startMe:(UIButton*) sender;
 -(IBAction)stopMe:(UIButton*) sender;
 - (IBAction)Graph:(id)sender;
+-(void)save;
+-(NSMutableDictionary *)load;
 
 @end

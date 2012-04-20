@@ -13,7 +13,7 @@
 
 @protocol TrackingBrainDelegate
 
--(void) update:(double) distance for: (TrackingBrain *)requestor;
+-(void) update:(double) distance location: (CLLocation *)newLocation  for: (TrackingBrain *)requestor;
 
 @end
 
@@ -28,7 +28,6 @@
     id delegate;
     NSMutableArray *h24;
     double distanceTotal;
-    double distanceDutour;
     double distanceParHeure;
     NSMutableString *heureActuelleString;
     
@@ -37,7 +36,6 @@
 
 @property (nonatomic, assign) id <TrackingBrainDelegate> brainDelegate;
 @property (nonatomic) double distanceTotal;
-@property (nonatomic) double distanceDutour;
 @property (nonatomic) double distanceParHeure;
 @property (nonatomic, retain) NSMutableString *heureActuelleString;
 @property (nonatomic, retain) NSMutableArray *h24;
@@ -53,6 +51,6 @@
 -(CLLocation *) getLocation;
 -(void) demarrer;
 -(void) arreter;
-
+-(NSMutableDictionary *) getDicoForSave;
 
 @end
