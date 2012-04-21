@@ -24,6 +24,8 @@
 @synthesize brainDelegate;
 
 
+/**** Initialisation a zero ( premiere initialisation ) ********/
+
 - (id)init
 {
     self = [super init];
@@ -48,20 +50,27 @@
     return self;
 }
 
+/**** Initialisation a partir de donnée rangée dans un dictionnaire (ici recuperé dans un fichier  .plist) ****/
+
 - (id) initWithDictionaryFromPlist: (NSDictionary *) dictionnary{
+   
     self = [super init];
+    
     if (self) {
-        for (int i =0; i < [dictionnary count]; i++) {
-            NSLog(@" objet %@ \n", [[dictionnary allValues] objectAtIndex:i]);
-        }
+
+        /* les données brute */
         self.distanceTotal = [[dictionnary objectForKey: @"distanceTotal"] doubleValue];
+        
         self.distanceParHeure = [[dictionnary objectForKey: @"distanceHeure"] doubleValue];
+        
         self.h24 = [dictionnary objectForKey: @"h24"];
+        
         self.heureActuelle =  [NSDate date];
         timeFormatter = [[NSDateFormatter alloc] init];
         [timeFormatter setDateFormat:@"HH"];
         self.heureActuelleString = [[NSMutableString alloc] initWithString:[timeFormatter stringFromDate:heureActuelle]];
 
+        /* initialistaion du LocationManager */
         self.locMgr =  [[[CLLocationManager alloc] init] autorelease];
         self.locMgr.delegate = self;
     }
@@ -79,35 +88,46 @@
     [super dealloc];
 }
 
-// changer, ne pas utiliser getlocation plustot new et old location en deux champ mis a jour aves la methode locationManeger de dessous
+/* Methode qui demarre l'actualisation en boucle de la localisation */
 
 -(void) demarrer{
     [self.locMgr startUpdatingLocation];
+    
+    /* filtre de distance */
     //self.locMgr.distanceFilter = 100;
+    
+    /* reglage de la precision */
     self.locMgr.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
 }
+
+/* methode qui stop l'actualisation en boucle de la position */
 
 -(void) arreter{
     [self.locMgr stopUpdatingLocation];
 
 }
 
+/* Methode qui retourn la Localisation actuel */
+
 -(CLLocation *) getLocation{
     return self.locMgr.location;
 }
+
+/* methode qui regroupe toute les données dans un dictionnaire ( ici utilisait pour sauvegarder les données*/
 
 -(NSMutableDictionary *) getDicoForSave{
     NSMutableDictionary *dico = [[NSMutableDictionary alloc] init ];
     
     
     [dico setObject: [NSNumber numberWithFloat: self.distanceTotal]  forKey:@"distanceTotal"];
+    [dico setObject: [NSNumber numberWithFloat: self.distanceParHeure]  forKey:@"distanceHeure"];
     [dico setObject: self.h24  forKey:@"h24"];
-    
     
     return dico;
     
 }
 
+/* redefinition de la methode appellée a chaque fois qu'un nouvelle localisation est trouvé */
 
 - (void)locationManager:(CLLocationManager *)manager
 	didUpdateToLocation:(CLLocation *)newLocation
@@ -115,28 +135,36 @@
 {
     
     
-    
+    //calcule de la date actuel
     heureActuelle = [NSDate date];
     NSString *tmp = [timeFormatter stringFromDate:self.heureActuelle];
     int index = [self.heureActuelleString intValue];
-    //On regarde si l'heure a changé
-    if(![tmp isEqualToString:self.heureActuelleString]){
-        //On met la distance parcourue par heure dans notre tableau
-        
-        [self.h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:self.distanceParHeure]];
-        self.distanceParHeure = 0;
-    }
-    //On met à jour l'heure actuelle
-    [self.heureActuelleString setString:tmp];
+    
+
     // calcule des distance uniquement si l'ancienne n'est pas egal a nil
     
     
     if (oldLocation != nil) {
+                //On regarde si l'heure a changé
+        if(![tmp isEqualToString:self.heureActuelleString]){  // si elle a changé:
+            //on reset la distance par heure
+            self.distanceParHeure = 0;
+        }
+        
+        //On met à jour l'heure actuelle
+        [self.heureActuelleString setString:tmp];
+        
+        //On calcule la distance parcouru dupuis la derniere MAJ
         self.distanceParHeure += (double) [oldLocation distanceFromLocation:newLocation];
         self.distanceTotal += (double) [oldLocation distanceFromLocation:newLocation];
+        
+        //On stock la distance par heure dans le tableai
         [self.h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat: self.distanceParHeure]];
         
+        //On envoi les info a sont delegate pour que l'interface graphique soit actualisée
+
         [brainDelegate update:self.distanceTotal location:newLocation for:self];
+        
     }
     
     

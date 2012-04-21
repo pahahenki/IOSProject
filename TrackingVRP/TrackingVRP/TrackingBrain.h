@@ -20,12 +20,15 @@
 
 @interface TrackingBrain : NSObject <CLLocationManagerDelegate> {
     
+    //delegate du Brain
     id <TrackingBrainDelegate> brainDelegate;
+    //delegate du CLLocationManager
+    id delegate;
+    
     CLLocationManager *locMgr;
     NSDate *heureActuelle;
     NSDateFormatter *timeFormatter;
     //le tableau des distances pour chaque heure de la journée (pour le graphe)
-    id delegate;
     NSMutableArray *h24;
     double distanceTotal;
     double distanceParHeure;
@@ -45,12 +48,15 @@
 
 
 
-
-
+/**** Initialisation a partir de donnée rangée dans un dictionnaire (ici recuperé dans un fichier  .plist) ****/
 - (id) initWithDictionaryFromPlist: (NSDictionary *) dictionnary;
+/* Methode qui retourn la Localisation actuel */
 -(CLLocation *) getLocation;
+/* Methode qui demarre l'actualisation en boucle de la localisation */
 -(void) demarrer;
+/* methode qui stop l'actualisation en boucle de la position */
 -(void) arreter;
+/* methode qui regroupe toute les données dans un dictionnaire ( ici utilisait pour sauvegarder les données*/
 -(NSMutableDictionary *) getDicoForSave;
 
 @end
