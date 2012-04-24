@@ -20,10 +20,11 @@
 @synthesize longitude;
 @synthesize latitude;
 @synthesize distanceTotal;
-@synthesize distancePartiel;
+@synthesize distanceSession;
+@synthesize distanceJournaliere;
+@synthesize vitesse;
 @synthesize heureActuel;
 @synthesize brain;
-@synthesize button;
 @synthesize graph;
 
 
@@ -40,13 +41,13 @@
     if (!dictFromFile) { //si on a rien recupèré du fichier (par exemple parce qu'il n'existe pas)
         
         // On initialise a zero
-        self.brain = [[TrackingBrain alloc] init];
+        brain = [[TrackingBrain alloc] init];
     }
     
     else { // sinon si on a recupéré qqch 
         
         // on initialise avec le dictionnaire recuperé
-        self.brain = [[TrackingBrain alloc] initWithDictionaryFromPlist:dictFromFile];
+        brain = [[TrackingBrain alloc] initWithDictionaryFromPlist:dictFromFile];
 
     }
     
@@ -62,7 +63,11 @@
         
     [longitude setText: [NSString stringWithFormat:@"longitude: %f", location.coordinate.longitude]];
     [latitude setText: [NSString stringWithFormat:@"latitude: %f", location.coordinate.latitude]];
-    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", self.brain.distanceTotal]];
+    [distanceTotal setText: [NSString stringWithFormat:@"distance: %@", [self.brain formatDistance:self.brain.distanceTotal]]];
+    [distanceJournaliere setText: [NSString stringWithFormat:@"distance Journaliere: %@", [self.brain formatDistance:self.brain.distanceJournaliere]]];
+    [distanceSession setText: [NSString stringWithFormat:@"distance Session: %@", [self.brain formatDistance:self.brain.distanceSession]]];
+    
+     
 
    
 }
@@ -73,7 +78,6 @@
     [longitude release];
     [latitude release];
     [brain release];
-    [button release];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -83,7 +87,6 @@
     [longitude release];
     [latitude release];
     [brain release];
-    [button release];
     [super dealloc];
 }
 
@@ -95,7 +98,7 @@
     [self save];
     
     // On initialise le controller de la vue du graphe avec les données de la journée en cours
-    graph = [[[GraphViewController alloc] initWithData:self.brain.h24] autorelease];
+    graph = [[[GraphViewController alloc] initWithData:self.brain.h24 semaine:self.brain.semaine] autorelease];
     
     // On dessine le graphe
     [graph dessinerGraph];
@@ -132,8 +135,10 @@
         // On avertis l'utilisateur qu'il doit autoriser la localisation
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"service localisation" message:@"Localisation impossible, merci d'activer votre service de localisation "delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
         [alert show];
+        [alert release];
     }
 
+    
     
 }
 
@@ -153,12 +158,18 @@
 
 
 
--(void)update:(double) distance location: (CLLocation*) newLocation for:(TrackingBrain *) requestor{
+-(void)update:(NSString *) distance location: (CLLocation*) newLocation speed: (CLLocationSpeed) speed distanceJournaliere:(NSString *)distancesJournaliere distanceSession:(NSString *)distancesSession for:(TrackingBrain *) requestor{
 
     
-    [distanceTotal setText: [NSString stringWithFormat:@"distance: %f", distance]];
+    [self.distanceTotal setText: [NSString stringWithFormat:@"distance: %@", distance]];
     [longitude setText: [NSString stringWithFormat:@"longitude: %f", newLocation.coordinate.longitude]];
-    [latitude setText: [NSString stringWithFormat:@"latitude: %f", newLocation.coordinate.latitude]];
+    [self.latitude setText: [NSString stringWithFormat:@"latitude: %f", newLocation.coordinate.latitude]];
+    [self.vitesse setText:[NSString stringWithFormat:@"vitesse: %f Km/h", speed*3.6]];
+    [self.distanceSession setText: [NSString stringWithFormat:@"Distance Session: %@", distancesSession]];
+    [self.distanceJournaliere setText: [NSString stringWithFormat:@"Distance Journaliere: %@", distancesJournaliere]];
+    [self save];
+    
+    
 
 
 
@@ -177,10 +188,39 @@
     
     //crée un dictionnaire à partir des donée du fichier recuperé
     NSMutableDictionary *content = [[NSMutableDictionary alloc] initWithContentsOfFile:path ];
+    
+    [content autorelease];
     //retourne ce dictionnaire
     return content;
 }
 
+-(IBAction)reset:(UIButton*) sender{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Attention" message:@"Toute les données vont etre effacée! Continuer? "delegate:self cancelButtonTitle:@"Annuler" otherButtonTitles:@"Ok", nil];
+    [alert show];
+    [alert release];
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    
+    if([title isEqualToString:@"Annuler"])
+    {
+        
+    }
+    else if([title isEqualToString:@"Ok"])
+    {
+        [self.brain arreter];
+        [self.brain reset];
+        [self save];
+        //On met a jour l'interface graphique
+
+        [distanceTotal setText: [NSString stringWithFormat:@"distance: %@", [self.brain formatDistance:self.brain.distanceTotal]]];
+        [distanceJournaliere setText: [NSString stringWithFormat:@"distance Journaliere: %@", [self.brain formatDistance:self.brain.distanceJournaliere]]];
+        [distanceSession setText: [NSString stringWithFormat:@"distance Session: %@", [self.brain formatDistance:self.brain.distanceSession]]];
+    }
+}
 
 /*Methode qui va ecrire les données dans un fichier properties.plist situé dans le repertoire Document
   le fichier est crée si inexistant et ecrasé si existant*/
@@ -192,6 +232,7 @@
     
     // ajoute le nom de fichier
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"properties.plist"];
+
 
     // recupere les données dans un dictionnaire et les ecrits dans le fichier
     [[self.brain getDicoForSave] writeToFile:path atomically:YES];

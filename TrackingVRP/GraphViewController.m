@@ -14,6 +14,7 @@
 @implementation GraphViewController
 
 @synthesize dataForPlot;
+@synthesize h24G, semaineG;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -24,22 +25,37 @@
     return self;
 }
 
--(id) initWithData: (NSMutableArray *) h24{
+-(id) initWithData: (NSMutableArray *) journee semaine: (NSMutableArray *) semaine{
     self = [super init];
     if (self){
-        NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:24];
+        self.h24G = [NSMutableArray arrayWithCapacity:24];
         NSUInteger i;
         for ( i = 0; i < 24; i++ ) {
             id x = [NSNumber numberWithFloat:i + 0.5] ;
-            id y = [h24 objectAtIndex:i];
-            NSLog(@"y = %@", y);
-            [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
+            id y = [NSNumber numberWithDouble:[[journee objectAtIndex:i] doubleValue] /1000];
+            [h24G addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
             
         }
-        self.dataForPlot = contentArray;
+        
+        self.semaineG = [NSMutableArray arrayWithCapacity:7];
+        for ( i = 0; i < 7; i++ ) {
+            id x = [NSNumber numberWithFloat:i + 0.5] ;
+            id y = [NSNumber numberWithDouble:[[semaine objectAtIndex:i] doubleValue] /1000];
+            [semaineG addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
+            
+        }
+        
+        self.dataForPlot = h24G;
     }
     return self;
     
+}
+
+-(void) dealloc{
+    [h24G release];
+    [semaineG release];
+    [dataForPlot release];
+    [super dealloc];
 }
 
 
@@ -59,6 +75,7 @@
     }
     
     CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:text]; 
+    [textLayer autorelease];
     return textLayer; 
     
 }
@@ -86,7 +103,7 @@
     graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     
     // Theme du graphique
-	CPTTheme *theme = [CPTTheme themeNamed:kCPTStocksTheme];
+	CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
     [graph applyTheme:theme];
     
     UIView * hostingView = self.view;
@@ -103,22 +120,54 @@
     graphHostingView.hostedGraph = graph;
     
     // Limite d'affichage de la vue par rapport à l'échelle des axes (voir les axes et les valeurs sur les axes)
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.allowsUserInteraction = YES;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.2) length:CPTDecimalFromFloat(8)]; // Les 6 premières heures
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-100) length:CPTDecimalFromInt(1000)];// environ 800m
+    double max = [[[dataForPlot objectAtIndex:0] objectForKey:@"y"] doubleValue];
+    for (int i =0; i < [dataForPlot count]; i++) {
+        if ([[[dataForPlot objectAtIndex:0] objectForKey:@"y"] doubleValue]>max) {
+            max = [[[dataForPlot objectAtIndex:0] objectForKey:@"y"] doubleValue];
+        }
+    }
     
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+    if ([dataForPlot count] == 24) {
+        plotSpace.allowsUserInteraction = YES;
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.2) length:CPTDecimalFromFloat(8)]; // Les 6 premières heures
+        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-100) length:CPTDecimalFromInt(1000)];// environ 800m
+
+    }
+    if ([dataForPlot count] == 7) {
+        plotSpace.allowsUserInteraction = NO;
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.6) length:CPTDecimalFromFloat(9)]; // Les 7 Jour
+        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1000) length:CPTDecimalFromInt(10000)];// environ 800m
+
+    }       
     // Axe X
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x = axisSet.xAxis;
     x.majorIntervalLength = CPTDecimalFromString(@"1");
     x.minorTicksPerInterval = 0;
+    if ([dataForPlot count] == 24) {
+        x.title = @"Heure";
+    }
+    if ([dataForPlot count] == 7) {
+        x.title = @"Jour";
+    }
+    
+    
+
     
     // Axe Y
     CPTXYAxis *y = axisSet.yAxis;
-    y.majorIntervalLength = CPTDecimalFromString(@"250");
-    y.minorTicksPerInterval = 4;
-    //un point tout les 50m
+    if ([dataForPlot count] == 24) {
+        y.majorIntervalLength = CPTDecimalFromString(@"250");
+        y.minorTicksPerInterval = 4;//un point tout les 50m
+    }
+    if ([dataForPlot count] == 7) {
+        y.majorIntervalLength = CPTDecimalFromString(@"2500");
+        y.minorTicksPerInterval = 4;//un point tout les 50m
+    }
+
+
+    
     
     // Ligne du graphique
     //	CPTScatterPlot *boundLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
@@ -143,8 +192,20 @@
 
     barPlot.dataSource = self;
     [graph addPlot:barPlot];
+    [graphHostingView release];
 
     
+}
+
+-(IBAction)semaineB:(UIButton*) sender{
+    
+    self.dataForPlot = self.semaineG;
+    [self dessinerGraph];
+}
+
+-(IBAction)jourB:(UIButton*) sender{
+    self.dataForPlot = self.h24G;
+    [self dessinerGraph];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
