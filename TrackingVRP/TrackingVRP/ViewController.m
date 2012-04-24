@@ -194,6 +194,7 @@
     return content;
 }
 
+/*cree une alerte qui va reseter le brain et le fichier de sauvegrde si l'utilisateur valide */
 -(IBAction)reset:(UIButton*) sender{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Attention" message:@"Toute les données vont etre effacée! Continuer? "delegate:self cancelButtonTitle:@"Annuler" otherButtonTitles:@"Ok", nil];
     [alert show];
@@ -201,6 +202,7 @@
     
 }
 
+/*deleger a alerte*/
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];

@@ -105,6 +105,8 @@
     [super dealloc];
 }
 
+
+/* remet les parametres a zero */
 -(void) reset{
      self.distanceSession=0;
     self.distanceTotal = 0;
@@ -143,6 +145,7 @@
 
 }
 
+/* formate la distance en metre ou km */
 - (NSString *) formatDistance: (double) distance{
     if (distance > 1000) {
         return [NSString stringWithFormat:@"%.0f Km", distance/1000];
@@ -175,6 +178,8 @@
     
 }
 
+
+/* retourn l'index en fonction du jour */
 -(int) getIndex{
     int indexJour =0;
     heureActuelle = [NSDate date];

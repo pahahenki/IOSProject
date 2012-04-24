@@ -94,6 +94,9 @@
 
 }
 
+
+/* fonction qui dessine le graphe */
+
 -(void) dessinerGraph{
     
     // Creation graphique
@@ -170,21 +173,8 @@
     
     
     // Ligne du graphique
-    //	CPTScatterPlot *boundLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
-    //    CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-    //    lineStyle.miterLimit = 10.0f;
-    //	lineStyle.lineWidth = 3.0f;
-    //	lineStyle.lineColor = [CPTColor redColor];
-    //    boundLinePlot.dataLineStyle = lineStyle;
-    //    boundLinePlot.identifier = @"Red Plot";
-    //    boundLinePlot.dataSource = self;
-    //	[graph addPlot:boundLinePlot];
-    
-    
     // barPlot
-    //    CPTMutableTextStyle *myTextStyle = [[[CPTMutableTextStyle alloc] init] autorelease];
-    //    myTextStyle.color = [CPTColor redColor];
-   
+       
     CPTBarPlot *barPlot = [[CPTBarPlot tubularBarPlotWithColor:[CPTColor redColor] horizontalBars:NO] autorelease];
     //    barPlot.labelTextStyle = myTextStyle;
     barPlot.delegate = self;
@@ -197,11 +187,16 @@
     
 }
 
+/*fonction qui redessine le graphe avec les jour a la place des heure */
+
 -(IBAction)semaineB:(UIButton*) sender{
     
     self.dataForPlot = self.semaineG;
     [self dessinerGraph];
 }
+
+/*fonction qui redessine le graphe avec les heures a la place des jours */
+
 
 -(IBAction)jourB:(UIButton*) sender{
     self.dataForPlot = self.h24G;
