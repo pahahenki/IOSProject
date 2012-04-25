@@ -53,7 +53,9 @@
 /**** Initialisation a partir de donnée rangée dans un dictionnaire (ici recuperé dans un fichier  .plist) ****/
 - (id) initWithDictionaryFromPlist: (NSDictionary *) dictionnary;
 /*   */
+
 - (void) reset;
+
 - (NSString *) formatDistance: (double) distance;
 
 /* Methode qui retourn la Localisation actuel */

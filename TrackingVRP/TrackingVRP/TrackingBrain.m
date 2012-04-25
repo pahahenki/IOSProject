@@ -180,53 +180,24 @@
 
 
 /* retourn l'index en fonction du jour */
+
 -(int) getIndex{
-    int indexJour =0;
     heureActuelle = [NSDate date];
+    int indexJour =0;
+    [timeFormatter setDateFormat:@"EEEE"];
     NSString *tmpJour = [timeFormatter stringFromDate:self.heureActuelle];
-    if ([tmpJour isEqualToString:@"Monday"] | [tmpJour isEqualToString:@"lundi"]) {
-        indexJour= 0;
-        
-    }
-    
-    else {
-        if ([tmpJour isEqualToString:@"Sunday"] | [tmpJour isEqualToString:@"dimanche"]) {
-            indexJour= 6;
-            
+    for (NSString *weekday in [timeFormatter weekdaySymbols]) 
+    {
+        if([tmpJour isEqualToString: weekday]){
+            return indexJour;
         }
-        
         else {
-            if ([tmpJour isEqualToString:@"Tuesday"] | [tmpJour isEqualToString:@"mardi"]) {
-                indexJour= 1;
-                
-            }
-            else {
-                if ([tmpJour isEqualToString:@"Wednesday"] |[tmpJour isEqualToString:@"mercredi"]) {
-                    indexJour= 2;
-                    
-                }
-                else {
-                    if ([tmpJour isEqualToString:@"Thursday"] | [tmpJour isEqualToString:@"jeudi"]) {
-                        indexJour= 3;
-                    }
-                    else {
-                        if ([tmpJour isEqualToString:@"Friday"] | [tmpJour isEqualToString:@"vendredi"]) {
-                            indexJour= 4;
-                        }
-                        else {
-                            if ([tmpJour isEqualToString:@"Saturday"] | [tmpJour isEqualToString:@"samedi"]) {
-                                indexJour= 5;
-                            }
-                        }
-                    }
-                }
-                
-            }
+            indexJour ++;
         }
     }
     return indexJour;
 }
-
+    
 
 
 /* redefinition de la methode appellée a chaque fois qu'un nouvelle localisation est trouvé */
@@ -259,13 +230,22 @@
                 //On regarde si l'heure a changé
         if(![tmpHeure isEqualToString:self.heureActuelleString]){  // si elle a changé:
             //on reset la distance par heure
+            if (tmpHeure == 0) {
+                for(int i = 0; i < 24; i++){
+                    [h24 insertObject:[NSNumber numberWithFloat:0] atIndex:i];
+                }
+            }
             [self.h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat: self.distanceParHeure]];
             self.distanceParHeure = 0;
         }
         
         if(![tmpJour isEqualToString:self.jourActuelleString]){ // si le jour a changer
             
-
+            if (tmpJour == 0) {
+                for(int i = 0; i < 24; i++){
+                    [semaine insertObject:[NSNumber numberWithFloat:0] atIndex:i];
+                }
+            }
             [self.semaine replaceObjectAtIndex:indexJour withObject:[NSNumber numberWithFloat: self.distanceJournaliere]];
             self.distanceJournaliere = 0;
             

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1296</int>
+		<int key="IBDocument.SystemTarget">1280</int>
 		<string key="IBDocument.SystemVersion">11D50b</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
 		<string key="IBDocument.AppKitVersion">1138.32</string>
@@ -116,7 +116,7 @@
 						<string key="NSFrame">{{20, 158}, {280, 38}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="40161134"/>
+						<reference key="NSNextKeyView" ref="825378308"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -169,7 +169,7 @@
 								<int key="IBUIStyle">1</int>
 								<reference key="IBUIToolbar" ref="727573513"/>
 							</object>
-							<object class="IBUIBarButtonItem" id="1020203626">
+							<object class="IBUIBarButtonItem" id="684482172">
 								<string key="IBUITitle">Reset</string>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<float key="IBUIWidth">70</float>
@@ -178,7 +178,7 @@
 							</object>
 						</array>
 					</object>
-					<object class="IBUILabel" id="746604539">
+					<object class="IBUILabel" id="443369315">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 250}, {280, 38}}</string>
@@ -199,13 +199,13 @@
 						<reference key="IBUIFontDescription" ref="1956408"/>
 						<reference key="IBUIFont" ref="28437272"/>
 					</object>
-					<object class="IBUILabel" id="40161134">
+					<object class="IBUILabel" id="825378308">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 204}, {280, 38}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="746604539"/>
+						<reference key="NSNextKeyView" ref="443369315"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -282,7 +282,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">distanceJournaliere</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="40161134"/>
+						<reference key="destination" ref="825378308"/>
 					</object>
 					<int key="connectionID">73</int>
 				</object>
@@ -290,7 +290,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">vitesse</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="746604539"/>
+						<reference key="destination" ref="443369315"/>
 					</object>
 					<int key="connectionID">74</int>
 				</object>
@@ -321,7 +321,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">reset:</string>
-						<reference key="source" ref="1020203626"/>
+						<reference key="source" ref="684482172"/>
 						<reference key="destination" ref="975951072"/>
 					</object>
 					<int key="connectionID">75</int>
@@ -342,10 +342,10 @@
 							<reference ref="727573513"/>
 							<reference ref="836901475"/>
 							<reference ref="696245359"/>
-							<reference ref="217050901"/>
 							<reference ref="787547985"/>
-							<reference ref="40161134"/>
-							<reference ref="746604539"/>
+							<reference ref="825378308"/>
+							<reference ref="443369315"/>
+							<reference ref="217050901"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -387,7 +387,7 @@
 							<reference ref="517643971"/>
 							<reference ref="354052433"/>
 							<reference ref="542877841"/>
-							<reference ref="1020203626"/>
+							<reference ref="684482172"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -408,17 +408,17 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">68</int>
-						<reference key="object" ref="1020203626"/>
+						<reference key="object" ref="684482172"/>
 						<reference key="parent" ref="727573513"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">70</int>
-						<reference key="object" ref="746604539"/>
+						<reference key="object" ref="443369315"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">71</int>
-						<reference key="object" ref="40161134"/>
+						<reference key="object" ref="825378308"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>
@@ -455,7 +455,6 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="Graph:">id</string>
 						<string key="reset:">UIButton</string>
-						<string key="save:">UIButton</string>
 						<string key="startMe:">UIButton</string>
 						<string key="stopMe:">UIButton</string>
 					</dictionary>
@@ -468,10 +467,6 @@
 							<string key="name">reset:</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
-						<object class="IBActionInfo" key="save:">
-							<string key="name">save:</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
 						<object class="IBActionInfo" key="startMe:">
 							<string key="name">startMe:</string>
 							<string key="candidateClassName">UIButton</string>
@@ -482,7 +477,6 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="button">UIButton</string>
 						<string key="distanceJournaliere">UILabel</string>
 						<string key="distanceSession">UILabel</string>
 						<string key="distanceTotal">UILabel</string>
@@ -492,10 +486,6 @@
 						<string key="vitesse">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="button">
-							<string key="name">button</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="distanceJournaliere">
 							<string key="name">distanceJournaliere</string>
 							<string key="candidateClassName">UILabel</string>
@@ -534,10 +524,6 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1296" key="NS.object.0"/>
-		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<string key="IBCocoaTouchPluginVersion">1181</string>

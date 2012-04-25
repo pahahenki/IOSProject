@@ -108,14 +108,6 @@
 
 }
 
-/* Action effectuer quand on presse le boutton save */
-- (IBAction)save:(UIButton*)sender{
-    
-    // sauvegarde les données
-    [self save];
-    
-}
-
 
 /* Action qui permet de demarré l'update en boucle de la localisation */
 /*      Relié au boutton start                                         */
