@@ -151,6 +151,7 @@
     // Axe X
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x = axisSet.xAxis;
+   
     
 
     if ([dataForPlot count] == 24) {
@@ -197,7 +198,7 @@
         x.labelRotation=M_PI/4;
         x.labelingPolicy=CPTAxisLabelingPolicyNone;
         NSArray *customTickLocations = [NSArray arrayWithObjects:[NSDecimalNumber numberWithInt:1],[NSDecimalNumber numberWithInt:2], [NSDecimalNumber numberWithInt:3], [NSDecimalNumber numberWithInt:4], [NSDecimalNumber numberWithInt:5], [NSDecimalNumber numberWithInt:6],[NSDecimalNumber numberWithInt:7],nil];
-        
+    
         NSArray *xAxisLabels = [NSArray arrayWithArray:[timeFormatter weekdaySymbols]];
         NSUInteger labelLocation = 0;
         NSMutableArray *customLabels = [NSMutableArray arrayWithCapacity:[xAxisLabels count]];
@@ -207,10 +208,16 @@
             newLabel.tickLocation = [tickLocation decimalValue];
             newLabel.offset = x.labelOffset + x.majorTickLength;
             newLabel.rotation = M_PI/4;
+            
+
+
             [customLabels addObject:newLabel];
             [newLabel release];
         }
         x.axisLabels =  [NSSet setWithArray:customLabels];
+       
+        
+
         
         
     }
@@ -219,16 +226,17 @@
     
     // Axe Y
     CPTXYAxis *y = axisSet.yAxis;
-
     CPTPlotRange *yAxisRange=[CPTPlotRange plotRangeWithLocation:CPTDecimalFromString(@"0.0") length:CPTDecimalFromString(@"400.0")];
     y.majorIntervalLength = CPTDecimalFromString(@"100");
     if ([dataForPlot count] == 24) {
 
-        y.minorTicksPerInterval = 4;//un point tout les 25kmm
+        y.minorTicksPerInterval = 4;//un point tout les 25km
         
     }
     if ([dataForPlot count] == 7) {
         yAxisRange=[CPTPlotRange plotRangeWithLocation:CPTDecimalFromString(@"0.0") length:CPTDecimalFromString(@"1500")];
+         y.orthogonalCoordinateDecimal=CPTDecimalFromString(@"0");
+
         y.majorIntervalLength = CPTDecimalFromString(@"500");
         y.minorTicksPerInterval = 4;//un point tout les 125Km
         

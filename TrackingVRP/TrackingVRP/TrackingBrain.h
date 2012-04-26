@@ -45,7 +45,7 @@
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, retain) CLLocationManager *locMgr;
 @property (nonatomic, retain) NSDate *heureActuelle;
-@property (nonatomic, retain) NSDate *jourActuelle;
+
 
 
 

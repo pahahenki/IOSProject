@@ -18,7 +18,7 @@
 @synthesize distanceTotal,distanceParHeure, distanceJournaliere, distanceSession;
 @synthesize heureActuelleString, jourActuelleString;
 @synthesize h24, semaine, mois, annee ;
-@synthesize heureActuelle, jourActuelle;
+@synthesize heureActuelle;
 @synthesize locMgr;
 @synthesize delegate;
 @synthesize brainDelegate;
@@ -67,22 +67,22 @@
     if (self) {
 
         /* les données brute */
+        timeFormatter = [[NSDateFormatter alloc] init];
+        
+        [timeFormatter setDateFormat:@"HH"];
         self.distanceSession=0;
         self.distanceTotal = [[dictionnary objectForKey: @"distanceTotal"] doubleValue];
-        self.distanceJournaliere = [[dictionnary objectForKey: @"distanceJournaliere"] doubleValue];
         self.distanceParHeure = [[dictionnary objectForKey: @"distanceHeure"] doubleValue];
         
         self.h24 = [dictionnary objectForKey: @"h24"];
         self.semaine = [dictionnary objectForKey: @"semaine"];
-        
         self.heureActuelle =  [NSDate date];
-        timeFormatter = [[NSDateFormatter alloc] init];
 
-        [timeFormatter setDateFormat:@"HH"];
         heureActuelleString = [[NSMutableString alloc] initWithString:[timeFormatter stringFromDate:heureActuelle]];
         
         [timeFormatter setDateFormat:@"EEEE"];
         jourActuelleString = [[NSMutableString alloc] initWithString:[timeFormatter stringFromDate:heureActuelle]];
+        self.distanceJournaliere = [[semaine objectAtIndex: [[timeFormatter weekdaySymbols] indexOfObject:jourActuelleString]] doubleValue];
 
 
         /* initialistaion du LocationManager */
@@ -100,8 +100,9 @@
     [jourActuelleString release];
     [heureActuelle release];
     [timeFormatter release];
-    [locMgr release];
     [self.locMgr stopUpdatingLocation];
+    [locMgr release];
+    
     [super dealloc];
 }
 
@@ -170,7 +171,6 @@
     
     [dico setObject: [NSNumber numberWithFloat: self.distanceTotal]  forKey:@"distanceTotal"];
     [dico setObject: [NSNumber numberWithFloat: self.distanceParHeure]  forKey:@"distanceHeure"];
-    [dico setObject: [NSNumber numberWithFloat: self.distanceJournaliere]  forKey:@"distanceJournaliere"];
     [dico setObject: self.h24  forKey:@"h24"];
     [dico setObject: self.semaine  forKey:@"semaine"];
     [dico autorelease];
@@ -183,19 +183,10 @@
 
 -(int) getIndex{
     heureActuelle = [NSDate date];
-    int indexJour =0;
     [timeFormatter setDateFormat:@"EEEE"];
     NSString *tmpJour = [timeFormatter stringFromDate:self.heureActuelle];
-    for (NSString *weekday in [timeFormatter weekdaySymbols]) 
-    {
-        if([tmpJour isEqualToString: weekday]){
-            return indexJour;
-        }
-        else {
-            indexJour ++;
-        }
-    }
-    return indexJour;
+    return [[timeFormatter weekdaySymbols] indexOfObject:tmpJour];
+
 }
     
 
@@ -241,11 +232,11 @@
         
         if(![tmpJour isEqualToString:self.jourActuelleString]){ // si le jour a changer
             
-            if (tmpJour == 0) {
+                
                 for(int i = 0; i < 24; i++){
-                    [semaine insertObject:[NSNumber numberWithFloat:0] atIndex:i];
+                    [h24 insertObject:[NSNumber numberWithFloat:0] atIndex:i];
                 }
-            }
+
             [self.semaine replaceObjectAtIndex:indexJour withObject:[NSNumber numberWithFloat: self.distanceJournaliere]];
             self.distanceJournaliere = 0;
             
