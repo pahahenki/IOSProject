@@ -52,7 +52,7 @@
         self.jourActuelleString = [[NSMutableString alloc] initWithString:[timeFormatter stringFromDate:heureActuelle]];
         self.locMgr =  [[[CLLocationManager alloc] init] autorelease];
         self.locMgr.delegate = self;
-
+        
         
     }
     return self;
@@ -61,30 +61,49 @@
 /**** Initialisation a partir de donnée rangée dans un dictionnaire (ici recuperé dans un fichier  .plist) ****/
 
 - (id) initWithDictionaryFromPlist: (NSDictionary *) dictionnary{
-   
+    
     self = [super init];
     
     if (self) {
-
-        /* les données brute */
-        timeFormatter = [[NSDateFormatter alloc] init];
         
-        [timeFormatter setDateFormat:@"HH"];
+        /* les données brute */
+        //init date
+        self.heureActuelle =  [NSDate date];
+        timeFormatter = [[NSDateFormatter alloc] init];
         self.distanceSession=0;
         self.distanceTotal = [[dictionnary objectForKey: @"distanceTotal"] doubleValue];
-        self.distanceParHeure = [[dictionnary objectForKey: @"distanceHeure"] doubleValue];
         
-        self.h24 = [dictionnary objectForKey: @"h24"];
-        self.semaine = [dictionnary objectForKey: @"semaine"];
-        self.heureActuelle =  [NSDate date];
-
-        heureActuelleString = [[NSMutableString alloc] initWithString:[timeFormatter stringFromDate:heureActuelle]];
         
+        // semaine
         [timeFormatter setDateFormat:@"EEEE"];
+        
+        self.semaine = [dictionnary objectForKey: @"semaine"];
+        
         jourActuelleString = [[NSMutableString alloc] initWithString:[timeFormatter stringFromDate:heureActuelle]];
+        
         self.distanceJournaliere = [[semaine objectAtIndex: [[timeFormatter weekdaySymbols] indexOfObject:jourActuelleString]] doubleValue];
-
-
+        
+        
+        //heure
+        
+        //si 0Km on etait fait dans la journée c'est que c'est une nouvelle journée donc init a zero les heures sinon init avec le tableau de la journée sauvgardée
+        if (distanceJournaliere == 0) {
+            self.h24 = [[NSMutableArray alloc] initWithCapacity:24];
+            for(int i = 0; i < 24; i++){
+                [h24 insertObject:[NSNumber numberWithFloat:0] atIndex:i];
+            }
+        }
+        else {
+            self.h24 = [dictionnary objectForKey: @"h24"];
+            
+        }
+        [timeFormatter setDateFormat:@"HH"];
+        ;
+        self.distanceParHeure = [[h24 objectAtIndex:[[timeFormatter stringFromDate:self.heureActuelle] intValue]] doubleValue];
+        NSLog(@"distance heure init: %f", self.distanceParHeure);
+        heureActuelleString = [[NSMutableString alloc] initWithString:[timeFormatter stringFromDate:heureActuelle]];        
+        
+        
         /* initialistaion du LocationManager */
         self.locMgr =  [[[CLLocationManager alloc] init] autorelease];
         self.locMgr.delegate = self;
@@ -109,7 +128,7 @@
 
 /* remet les parametres a zero */
 -(void) reset{
-     self.distanceSession=0;
+    self.distanceSession=0;
     self.distanceTotal = 0;
     self.distanceParHeure = 0;
     self.distanceJournaliere = 0;
@@ -143,7 +162,7 @@
 -(void) arreter{
     [self.locMgr stopUpdatingLocation];
     self.distanceSession = 0;
-
+    
 }
 
 /* formate la distance en metre ou km */
@@ -170,7 +189,6 @@
     
     
     [dico setObject: [NSNumber numberWithFloat: self.distanceTotal]  forKey:@"distanceTotal"];
-    [dico setObject: [NSNumber numberWithFloat: self.distanceParHeure]  forKey:@"distanceHeure"];
     [dico setObject: self.h24  forKey:@"h24"];
     [dico setObject: self.semaine  forKey:@"semaine"];
     [dico autorelease];
@@ -186,9 +204,9 @@
     [timeFormatter setDateFormat:@"EEEE"];
     NSString *tmpJour = [timeFormatter stringFromDate:self.heureActuelle];
     return [[timeFormatter weekdaySymbols] indexOfObject:tmpJour];
-
-}
     
+}
+
 
 
 /* redefinition de la methode appellée a chaque fois qu'un nouvelle localisation est trouvé */
@@ -210,15 +228,15 @@
     
     
     
-
+    
     // calcule des distance uniquement si l'ancienne n'est pas egal a nil
     
     
     if (oldLocation != nil) {
         
         
-        
-                //On regarde si l'heure a changé
+        NSLog(@"distance heure avant: %f", self.distanceParHeure);
+        //On regarde si l'heure a changé
         if(![tmpHeure isEqualToString:self.heureActuelleString]){  // si elle a changé:
             //on reset la distance par heure
             if (tmpHeure == 0) {
@@ -226,23 +244,23 @@
                     [h24 insertObject:[NSNumber numberWithFloat:0] atIndex:i];
                 }
             }
-            [self.h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat: self.distanceParHeure]];
+
             self.distanceParHeure = 0;
         }
         
         if(![tmpJour isEqualToString:self.jourActuelleString]){ // si le jour a changer
             
-                
-                for(int i = 0; i < 24; i++){
-                    [h24 insertObject:[NSNumber numberWithFloat:0] atIndex:i];
-                }
-
+            
+            for(int i = 0; i < 24; i++){
+                [h24 insertObject:[NSNumber numberWithFloat:0] atIndex:i];
+            }
+            
             [self.semaine replaceObjectAtIndex:indexJour withObject:[NSNumber numberWithFloat: self.distanceJournaliere]];
             self.distanceJournaliere = 0;
             
-
-        }
             
+        }
+        
         
         
         
@@ -256,16 +274,16 @@
         self.distanceTotal += (double) [oldLocation distanceFromLocation:newLocation];
         self.distanceJournaliere += (double) [oldLocation distanceFromLocation:newLocation];
         self.distanceSession += (double) [oldLocation distanceFromLocation:newLocation];
-        
+        NSLog(@"distance heure apres: %f", self.distanceParHeure);
         //On stock la distance par heure dans le tableai
         [self.h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat: self.distanceParHeure]];
         
-        //On stock la distance par jour dans le tableai
-       // NSLog(@"index %d, dist sem : %f", indexJour, distanceJournaliere);
+        //On stock la distance par jour dans le tableau
+        // NSLog(@"index %d, dist sem : %f", indexJour, distanceJournaliere);
         [self.semaine replaceObjectAtIndex:indexJour withObject:[NSNumber numberWithFloat: self.distanceJournaliere]];
         
         //On envoi les info a sont delegate pour que l'interface graphique soit actualisée
-
+        
         [brainDelegate update:[self formatDistance:self.distanceTotal] location:newLocation speed:newLocation.speed distanceJournaliere: [self formatDistance:self.distanceJournaliere] distanceSession: [self formatDistance:self.distanceSession] for:self];
         
     }
