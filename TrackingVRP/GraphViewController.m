@@ -137,8 +137,8 @@
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     if ([dataForPlot count] == 24) {
         plotSpace.allowsUserInteraction = YES;
-        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.2) length:CPTDecimalFromFloat(8)]; // Les 6 premières heures
-        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-100) length:CPTDecimalFromInt(400)];// environ 800m
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.3) length:CPTDecimalFromFloat(8)]; // Les 6 premières heures
+        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-70) length:CPTDecimalFromInt(400)];// environ 800m
         
     }
     if ([dataForPlot count] == 7) {

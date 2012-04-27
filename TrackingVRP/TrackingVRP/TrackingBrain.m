@@ -98,9 +98,7 @@
             
         }
         [timeFormatter setDateFormat:@"HH"];
-        ;
         self.distanceParHeure = [[h24 objectAtIndex:[[timeFormatter stringFromDate:self.heureActuelle] intValue]] doubleValue];
-        NSLog(@"distance heure init: %f", self.distanceParHeure);
         heureActuelleString = [[NSMutableString alloc] initWithString:[timeFormatter stringFromDate:heureActuelle]];        
         
         
@@ -235,7 +233,6 @@
     if (oldLocation != nil) {
         
         
-        NSLog(@"distance heure avant: %f", self.distanceParHeure);
         //On regarde si l'heure a changé
         if(![tmpHeure isEqualToString:self.heureActuelleString]){  // si elle a changé:
             //on reset la distance par heure
@@ -274,7 +271,6 @@
         self.distanceTotal += (double) [oldLocation distanceFromLocation:newLocation];
         self.distanceJournaliere += (double) [oldLocation distanceFromLocation:newLocation];
         self.distanceSession += (double) [oldLocation distanceFromLocation:newLocation];
-        NSLog(@"distance heure apres: %f", self.distanceParHeure);
         //On stock la distance par heure dans le tableai
         [self.h24 replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat: self.distanceParHeure]];
         
